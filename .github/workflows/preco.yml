@@ -1,0 +1,40 @@
+name: preço do dia
+
+on:
+  schedule:
+    - cron: "0 12 * * *"   # 09:00 em Porto Alegre (UTC-3)
+  workflow_dispatch:        # permite rodar na mão pelo botão do GitHub
+
+permissions:
+  contents: write
+
+concurrency:
+  group: coleta
+  cancel-in-progress: false
+
+jobs:
+  coletar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - run: pip install flights==0.8.4
+
+      - name: conferir o preço
+        run: python coleta.py
+
+      - name: publicar se mudou
+        run: |
+          if git diff --quiet dados.json; then
+            echo "preço igual ao de ontem, nada a publicar"
+            exit 0
+          fi
+          git config user.name "robo-do-carnas"
+          git config user.email "actions@github.com"
+          git add dados.json
+          git commit -m "preço de $(date -u +%d/%m)"
+          git push

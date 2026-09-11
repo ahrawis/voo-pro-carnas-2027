@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voo pro Carnas 2027 — Painel de Embarque</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --board:#14110D;
+  --board-lift:#1E1A14;
+  --rule:#332C22;
+  --flap:#E9E2D4;
+  --flap-shadow:#C6BDAA;
+  --amber:#F2A900;
+  --amber-dim:#9C6F0B;
+  --bone:#D8D1C3;
+  --mute:#8A8071;
+  --go:#5FBF7C;
+  --hold:#D9603F;
+  --serpentina-1:#FF3E7F;
+  --serpentina-2:#2FC4B2;
+  --serpentina-3:#F2A900;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:var(--board);
+  color:var(--bone);
+  font-family:"IBM Plex Sans Condensed",system-ui,sans-serif;
+  font-size:16px;
+  line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+  padding:clamp(12px,3vw,40px);
+}
+.board{
+  max-width:1080px;margin:0 auto;
+  background:linear-gradient(180deg,#191510,#110E0A);
+  border:1px solid var(--rule);
+  border-radius:4px;
+  box-shadow:0 40px 80px -40px #000, inset 0 1px 0 #3A3228;
+  overflow:hidden;
+}
+
+/* ---- cabeçalho do painel ---- */
+.masthead{
+  display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;
+  padding:18px 22px 14px;
+  border-bottom:1px solid var(--rule);
+  background:
+    repeating-linear-gradient(90deg,transparent 0 6px,rgba(255,255,255,.012) 6px 7px);
+}
+.sign{
+  font-weight:700;font-size:clamp(20px,3.4vw,30px);
+  letter-spacing:-.015em;color:var(--flap);
+  margin:0;
+}
+.sign em{font-style:normal;color:var(--amber)}
+.route{
+  font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--mute);
+  display:flex;gap:10px;align-items:center;
+}
+.route b{color:var(--bone);font-weight:500}
+.lamp{margin-left:auto;display:flex;align-items:center;gap:8px;font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--mute)}
+.lamp i{width:7px;height:7px;border-radius:50%;background:var(--go);box-shadow:0 0 8px var(--go);display:block}
+
+/* serpentina presa no painel */
+.streamers{height:6px;display:flex}
+.streamers span{flex:1}
+.streamers span:nth-child(3n+1){background:var(--serpentina-1)}
+.streamers span:nth-child(3n+2){background:var(--serpentina-2)}
+.streamers span:nth-child(3n+3){background:var(--serpentina-3)}
+
+/* ---- contador split-flap ---- */
+.countdown{
+  padding:34px 22px 30px;
+  display:flex;gap:clamp(16px,4vw,44px);align-items:center;flex-wrap:wrap;
+  border-bottom:1px solid var(--rule);
+}
+.flaps{display:flex;gap:6px}
+.flap{
+  position:relative;
+  width:clamp(54px,10vw,86px);height:clamp(78px,14vw,122px);
+  border-radius:5px;
+  background:linear-gradient(180deg,var(--flap) 0 49.6%,var(--flap-shadow) 49.6% 50.4%,var(--flap) 50.4% 100%);
+  color:#17130E;
+  font-family:"IBM Plex Mono",monospace;font-weight:600;
+  font-size:clamp(46px,8.4vw,76px);
+  display:grid;place-items:center;
+  box-shadow:0 2px 0 #6E6757, 0 14px 24px -12px #000;
+  overflow:hidden;
+}
+.flap.turning{animation:turn .085s linear}
+@keyframes turn{0%{transform:translateY(-2px) scaleY(.94)}100%{transform:none}}
+.cd-label{max-width:30ch}
+.cd-label .big{
+  font-size:clamp(19px,2.6vw,26px);font-weight:600;color:var(--flap);
+  letter-spacing:-.01em;margin:0 0 4px;
+}
+.cd-label p{margin:0;color:var(--mute);font-family:"IBM Plex Mono",monospace;font-size:13px}
+.cd-label p b{color:var(--amber);font-weight:500}
+
+/* ---- linha da tarifa ---- */
+.fare{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;
+  padding:26px 22px;border-bottom:1px solid var(--rule);
+  background:var(--board-lift);
+}
+.fare .tag{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--mute);margin:0 0 6px}
+.price{
+  display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+}
+.price .num{
+  font-size:clamp(48px,10vw,96px);line-height:.92;font-weight:700;
+  color:var(--amber);letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums;
+}
+.price .cur{font-size:clamp(20px,3vw,30px);font-weight:500;color:var(--amber-dim)}
+.price .delta{
+  font-family:"IBM Plex Mono",monospace;font-size:14px;color:var(--bone);
+  padding-bottom:8px;
+}
+.price .delta b{color:var(--hold);font-weight:500}
+.verdict{
+  text-align:right;
+}
+.chip{
+  display:inline-block;padding:11px 18px;border-radius:3px;
+  font-weight:700;font-size:clamp(15px,2vw,19px);letter-spacing:.01em;
+  border:1px solid;
+}
+.chip[data-v="hold"]{color:var(--hold);border-color:#5B2B1F;background:#26150F}
+.chip[data-v="fair"]{color:var(--amber);border-color:#5A4108;background:#241B07}
+.chip[data-v="buy"]{color:var(--go);border-color:#25502F;background:#10200F}
+.verdict small{display:block;margin-top:8px;color:var(--mute);font-family:"IBM Plex Mono",monospace;font-size:12px;max-width:24ch;margin-left:auto}
+
+/* ---- linhas de voo ---- */
+.legs{width:100%;border-collapse:collapse;font-family:"IBM Plex Mono",monospace;font-size:14px}
+.legs th{
+  text-align:left;font-weight:400;color:var(--mute);font-size:11px;
+  padding:10px 22px;border-bottom:1px solid var(--rule);
+}
+.legs td{padding:12px 22px;border-bottom:1px solid var(--rule);color:var(--bone)}
+.legs tr:last-child td{border-bottom:0}
+.legs .dir{color:var(--flap)}
+.legs .hour{color:var(--amber);font-weight:500}
+.legs .co{color:var(--mute)}
+.book{
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:16px 22px;border-top:1px solid var(--rule);background:var(--board-lift);
+}
+.book a{
+  color:#14110D;background:var(--amber);text-decoration:none;
+  padding:10px 16px;border-radius:3px;font-weight:700;font-size:15px;
+}
+.book a:focus-visible{outline:3px solid var(--flap);outline-offset:2px}
+.book span{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--mute)}
+
+/* ---- histórico (escala menor) ---- */
+.log{padding:22px;background:#100D09;border-top:1px solid var(--rule)}
+.log h2{
+  font-size:13px;font-weight:600;color:var(--mute);margin:0 0 14px;
+  font-family:"IBM Plex Mono",monospace;
+}
+.log-grid{display:grid;grid-template-columns:minmax(0,2.4fr) minmax(180px,1fr);gap:22px;align-items:stretch}
+.chart{background:#0C0A07;border:1px solid var(--rule);border-radius:3px;padding:10px}
+.chart svg{display:block;width:100%;height:130px}
+.stats{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:3px;overflow:hidden}
+.stat{background:#0C0A07;padding:9px 12px;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.stat dt{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--mute);margin:0}
+.stat dd{margin:0;font-family:"IBM Plex Mono",monospace;font-size:15px;color:var(--bone);font-variant-numeric:tabular-nums}
+.stat dd.lo{color:var(--go)}
+.stat dd.hi{color:var(--hold)}
+footer{padding:14px 22px;color:#5E564A;font-family:"IBM Plex Mono",monospace;font-size:11px}
+
+@media (max-width:720px){
+  .fare{grid-template-columns:1fr}
+  .verdict{text-align:left}
+  .verdict small{margin-left:0}
+  .log-grid{grid-template-columns:1fr}
+  .legs th:nth-child(4),.legs td:nth-child(4){display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .flap.turning{animation:none}
+}
+</style>
+</head>
+<body>
+<main class="board">
+  <div class="streamers" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+
+  <header class="masthead">
+    <h1 class="sign">Voo pro <em>Carnas</em> 2027</h1>
+    <div class="route"><b>POA</b> ✈ <b>GIG · SDU</b> <span>ida e volta · 1 adulto · econômica</span></div>
+    <div class="lamp"><i></i> monitorando</div>
+  </header>
+
+  <section class="countdown">
+    <div class="flaps" id="flaps" role="img" aria-label="148 dias para o embarque"></div>
+    <div class="cd-label">
+      <p class="big">dias para o embarque</p>
+      <p>saída <b>sex 05 fev 2027</b>, depois do expediente<br>volta na madrugada de <b>qui 11 fev</b></p>
+    </div>
+  </section>
+
+  <section class="fare">
+    <div>
+      <p class="tag">TARIFA MAIS BARATA HOJE</p>
+      <div class="price">
+        <span class="cur">R$</span><span class="num" id="price">2.190</span>
+        <span class="delta"><b id="delta">+18,6%</b> acima do menor preço já visto (R$ 1.847)</span>
+      </div>
+    </div>
+    <div class="verdict">
+      <span class="chip" data-v="hold">Esperar</span>
+      <small>faixa de preço alta pra essa rota. Historicamente cai de novo.</small>
+    </div>
+  </section>
+
+  <table class="legs">
+    <thead>
+      <tr><th>trecho</th><th>voo</th><th>saída</th><th>chegada</th><th>paradas</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="dir">POA → GIG</td><td class="co">GOL 1732</td>
+        <td><span class="hour">19:35</span> sex 05/02</td><td>21:50 sex 05/02</td><td>direto</td>
+      </tr>
+      <tr>
+        <td class="dir">GIG → POA</td><td class="co">GOL 1789</td>
+        <td><span class="hour">23:40</span> qua 10/02</td><td>02:05 qui 11/02</td><td>direto</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="book">
+    <span>preço lido no Google Flights hoje às 09:04</span>
+    <a href="#">Abrir no Google Flights</a>
+  </div>
+
+  <section class="log">
+    <h2>registro de preços · desde 10 abr 2026</h2>
+    <div class="log-grid">
+      <div class="chart"><svg id="chart" viewBox="0 0 600 130" preserveAspectRatio="none" role="img" aria-label="Gráfico do preço diário dos últimos meses"></svg></div>
+      <dl class="stats">
+        <div class="stat"><dt>menor preço</dt><dd class="lo">R$ 1.847</dd></div>
+        <div class="stat"><dt>média</dt><dd>R$ 2.510</dd></div>
+        <div class="stat"><dt>maior preço</dt><dd class="hi">R$ 3.980</dd></div>
+        <div class="stat"><dt>leituras</dt><dd>61</dd></div>
+        <div class="stat"><dt>mínimo visto em</dt><dd>22/07</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <footer>atualizado automaticamente todo dia às 09:00 · dados do Google Flights via fli</footer>
+</main>
+
+<script>
+// ---- contador split-flap ----
+const alvo = new Date('2027-02-05T19:35:00-03:00');
+const dias = Math.max(0, Math.ceil((alvo - new Date()) / 864e5));
+const digitos = String(dias).padStart(3,'0').split('');
+const wrap = document.getElementById('flaps');
+const reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+digitos.forEach((d,i)=>{
+  const el = document.createElement('div');
+  el.className = 'flap';
+  el.textContent = reduz ? d : '0';
+  wrap.appendChild(el);
+  if (reduz) return;
+  let n = 0, voltas = 9 + i*7;
+  const t = setInterval(()=>{
+    el.textContent = String(n++ % 10);
+    el.classList.add('turning');
+    setTimeout(()=>el.classList.remove('turning'), 80);
+    if (n > voltas){ clearInterval(t); el.textContent = d; }
+  }, 55 + i*12);
+});
+
+// ---- série de preços (mock com a forma que o JSON real vai ter) ----
+const serie = (()=>{
+  let p = 3180, s = 7;
+  const r = ()=> (s = (s*9301+49297)%233280) / 233280;
+  return Array.from({length:61},(_,i)=>{
+    p += (r()-.52)*260 - (i<34 ? 16 : -9);
+    return Math.round(Math.min(3980, Math.max(1847, p)));
+  });
+})();
+const lo = Math.min(...serie), hi = Math.max(...serie);
+const pts = serie.map((v,i)=>[i/(serie.length-1)*600, 122 - (v-lo)/(hi-lo)*112]);
+const d = pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+const iLo = serie.indexOf(lo);
+document.getElementById('chart').innerHTML = `
+  <path d="${d} L600 130 L0 130 Z" fill="#F2A900" opacity=".07"/>
+  <path d="${d}" fill="none" stroke="#F2A900" stroke-width="1.6"/>
+  <line x1="0" y1="${pts[iLo][1].toFixed(1)}" x2="600" y2="${pts[iLo][1].toFixed(1)}" stroke="#5FBF7C" stroke-width="1" stroke-dasharray="3 4"/>
+  <circle cx="${pts[iLo][0].toFixed(1)}" cy="${pts[iLo][1].toFixed(1)}" r="3.5" fill="#5FBF7C"/>
+  <circle cx="600" cy="${pts.at(-1)[1].toFixed(1)}" r="3.5" fill="#F2A900"/>`;
+</script>
+</body>
+</html>

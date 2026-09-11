@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voo pro Carnas 2027 — Bloco do Embarque</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --roxo:#2A0A4A;
+  --roxo-fundo:#1C0633;
+  --magenta:#FF2E6E;
+  --lima:#C6FF4F;
+  --ouro:#FFC400;
+  --creme:#FFF1DC;
+  --turquesa:#25D0C0;
+  --tinta:#180429;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:var(--roxo-fundo);
+  background-image:
+    radial-gradient(circle at 12% 8%, rgba(255,46,110,.30), transparent 42%),
+    radial-gradient(circle at 88% 4%, rgba(37,208,192,.22), transparent 38%),
+    radial-gradient(circle at 50% 100%, rgba(255,196,0,.14), transparent 55%);
+  color:var(--creme);
+  font-family:"Space Grotesk",system-ui,sans-serif;
+  font-size:16px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  padding:clamp(14px,3vw,44px);
+}
+.cartaz{max-width:960px;margin:0 auto}
+
+/* ---- topo do cartaz ---- */
+.faixa{
+  display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;
+  background:var(--magenta);color:var(--tinta);
+  padding:8px 16px;border-radius:999px;
+  font-weight:700;font-size:13px;letter-spacing:.02em;
+}
+.faixa span:nth-child(2){color:#fff}
+
+.titulo{
+  font-family:"Bungee",system-ui,sans-serif;
+  font-size:clamp(46px,12.5vw,126px);
+  line-height:.84;letter-spacing:-.012em;
+  margin:22px 0 0;color:var(--creme);
+  text-shadow:5px 5px 0 var(--magenta), 10px 10px 0 var(--roxo);
+}
+.titulo .ano{color:var(--ouro);text-shadow:5px 5px 0 var(--turquesa),10px 10px 0 var(--roxo)}
+
+.contagem{
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  margin:26px 0 0;
+}
+.cartoes{display:flex;gap:7px}
+.cartao{
+  width:clamp(48px,8.5vw,70px);height:clamp(62px,11vw,92px);
+  background:linear-gradient(180deg,var(--creme) 0 49.4%,#D9C7A9 49.4% 50.6%,var(--creme) 50.6%);
+  color:var(--tinta);border-radius:8px;
+  font-family:"Bungee",system-ui,sans-serif;
+  font-size:clamp(30px,6vw,50px);
+  display:grid;place-items:center;
+  box-shadow:0 5px 0 #A88E68;
+}
+.cartao.gira{animation:gira .09s linear}
+@keyframes gira{from{transform:translateY(-3px) scaleY(.9)}to{transform:none}}
+.contagem p{margin:0;font-weight:700;font-size:clamp(16px,2.3vw,21px);max-width:22ch}
+.contagem p small{display:block;font-weight:400;font-size:14px;color:#C9A9E8}
+
+/* ---- preço ---- */
+.preco-bloco{
+  margin-top:30px;
+  background:var(--roxo);
+  border:3px solid var(--creme);
+  border-radius:22px;
+  padding:clamp(20px,3.4vw,34px);
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(18px,3vw,34px);align-items:center;
+}
+.preco-bloco .hoje{margin:0 0 2px;font-weight:700;color:var(--lima);font-size:15px}
+.valor{
+  font-family:"Bungee",system-ui,sans-serif;
+  font-size:clamp(54px,13vw,134px);line-height:.86;
+  color:var(--ouro);letter-spacing:-.02em;margin:0;
+  font-feature-settings:"tnum";
+}
+.valor sup{font-size:.36em;vertical-align:.9em;color:var(--creme);margin-right:.1em}
+.comparacao{margin:10px 0 0;font-size:15px;color:#E6D2F5}
+.comparacao b{color:var(--magenta)}
+.selo{
+  display:inline-block;margin-top:16px;
+  font-family:"Bungee",system-ui,sans-serif;
+  font-size:clamp(19px,3vw,28px);
+  padding:10px 20px;border-radius:12px;
+  transform:rotate(-2.2deg);
+}
+.selo[data-v="hold"]{background:var(--magenta);color:#fff}
+.selo[data-v="fair"]{background:var(--ouro);color:var(--tinta)}
+.selo[data-v="buy"]{background:var(--lima);color:var(--tinta)}
+.selo-nota{display:block;margin-top:12px;font-size:14px;color:#C9A9E8;max-width:30ch}
+
+/* medidor corote */
+.medidor{display:flex;flex-direction:column;align-items:center;gap:10px}
+.medidor svg{width:clamp(88px,14vw,124px);height:auto;display:block}
+.medidor figcaption{font-size:12px;color:#C9A9E8;text-align:center;max-width:14ch;line-height:1.3}
+
+/* ---- voo ---- */
+.voo{
+  margin-top:18px;display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap;
+  background:var(--creme);color:var(--tinta);
+  border-radius:16px;padding:16px 20px;
+}
+.trechos{display:flex;gap:26px;flex-wrap:wrap;font-size:15px}
+.trecho b{display:block;font-family:"Bungee",system-ui,sans-serif;font-size:17px;letter-spacing:-.01em}
+.trecho span{color:#5B4A6B}
+.voo a{
+  background:var(--tinta);color:var(--creme);text-decoration:none;
+  font-weight:700;font-size:15px;padding:12px 20px;border-radius:999px;white-space:nowrap;
+}
+.voo a:focus-visible{outline:3px solid var(--magenta);outline-offset:3px}
+
+/* ---- histórico ---- */
+.historico{
+  margin-top:22px;background:rgba(255,241,220,.07);
+  border:1px solid rgba(255,241,220,.2);border-radius:16px;
+  padding:16px 18px;
+}
+.historico h2{
+  margin:0 0 12px;font-size:14px;font-weight:700;color:var(--lima);
+}
+.historico .linha{display:grid;grid-template-columns:minmax(0,2.2fr) minmax(150px,1fr);gap:18px;align-items:center}
+.historico svg{display:block;width:100%;height:110px}
+.numeros{display:flex;flex-direction:column;gap:6px;font-size:13px}
+.numeros div{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dotted rgba(255,241,220,.22);padding-bottom:5px}
+.numeros span:last-child{font-weight:700;font-variant-numeric:tabular-nums}
+.numeros .min span:last-child{color:var(--lima)}
+.numeros .max span:last-child{color:var(--magenta)}
+footer{margin:18px 2px 0;font-size:12px;color:#9B7FB8}
+
+@media (max-width:760px){
+  .preco-bloco{grid-template-columns:1fr}
+  .medidor{flex-direction:row;align-items:center;gap:16px}
+  .medidor figcaption{text-align:left;max-width:20ch}
+  .historico .linha{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){ .cartao.gira{animation:none} }
+</style>
+</head>
+<body>
+<main class="cartaz">
+  <div class="faixa">
+    <span>Bloco do Embarque</span>
+    <span>POA ✈ Rio · GIG ou SDU</span>
+    <span>05 a 11 fev 2027</span>
+  </div>
+
+  <h1 class="titulo">Voo pro<br>Carnas <span class="ano">2027</span></h1>
+
+  <div class="contagem">
+    <div class="cartoes" id="cartoes" role="img" aria-label="148 dias para o embarque"></div>
+    <p>dias pro avião levantar
+      <small>sex 05/02 às 19:35, já com o expediente encerrado</small>
+    </p>
+  </div>
+
+  <section class="preco-bloco">
+    <div>
+      <p class="hoje">o preço de hoje, por pessoa, ida e volta</p>
+      <p class="valor"><sup>R$</sup>2.190</p>
+      <p class="comparacao"><b>+18,6%</b> acima do mais barato que já apareceu (R$ 1.847, em 22/07)</p>
+      <span class="selo" data-v="hold">Esperar</span>
+      <small class="selo-nota">tá na faixa cara da rota. Já caiu pra menos disso 9 vezes.</small>
+    </div>
+
+    <figure class="medidor">
+      <svg viewBox="0 0 80 130" role="img" aria-label="Medidor em formato de corote, 27% cheio">
+        <defs><clipPath id="garrafa">
+          <path d="M28 6h24v14c0 4 10 10 10 20v74a8 8 0 0 1-8 8H26a8 8 0 0 1-8-8V40c0-10 10-16 10-20V6z"/>
+        </clipPath></defs>
+        <g clip-path="url(#garrafa)">
+          <rect x="0" y="0" width="80" height="130" fill="#3B1466"/>
+          <rect x="0" y="95" width="80" height="35" fill="#C6FF4F"/>
+          <rect x="0" y="52" width="80" height="30" fill="#FFF1DC"/>
+          <text x="40" y="72" text-anchor="middle" font-family="Bungee" font-size="15" fill="#180429">27%</text>
+        </g>
+        <path d="M28 6h24v14c0 4 10 10 10 20v74a8 8 0 0 1-8 8H26a8 8 0 0 1-8-8V40c0-10 10-16 10-20V6z"
+              fill="none" stroke="#FFF1DC" stroke-width="3"/>
+        <rect x="26" y="2" width="28" height="8" rx="2" fill="#FF2E6E"/>
+      </svg>
+      <figcaption>quanto o preço de hoje se aproxima do melhor já visto</figcaption>
+    </figure>
+  </section>
+
+  <div class="voo">
+    <div class="trechos">
+      <div class="trecho"><b>POA → GIG</b><span>sex 05/02 · 19:35 → 21:50 · direto · GOL</span></div>
+      <div class="trecho"><b>GIG → POA</b><span>qua 10/02 · 23:40 → 02:05 qui · direto · GOL</span></div>
+    </div>
+    <a href="#">Ver no Google Flights</a>
+  </div>
+
+  <section class="historico">
+    <h2>como o preço andou até aqui</h2>
+    <div class="linha">
+      <svg id="chart" viewBox="0 0 600 110" preserveAspectRatio="none" role="img" aria-label="Gráfico do preço diário"></svg>
+      <div class="numeros">
+        <div class="min"><span>mais barato</span><span>R$ 1.847</span></div>
+        <div><span>média</span><span>R$ 2.510</span></div>
+        <div class="max"><span>mais caro</span><span>R$ 3.980</span></div>
+        <div><span>medições</span><span>61</span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>o robô confere o preço todo dia de manhã e atualiza esta página sozinho · fonte: Google Flights</footer>
+</main>
+
+<script>
+const alvo = new Date('2027-02-05T19:35:00-03:00');
+const dias = Math.max(0, Math.ceil((alvo - new Date())/864e5));
+const wrap = document.getElementById('cartoes');
+const reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
+String(dias).padStart(3,'0').split('').forEach((d,i)=>{
+  const el = document.createElement('div');
+  el.className='cartao'; el.textContent = reduz ? d : '0';
+  wrap.appendChild(el);
+  if (reduz) return;
+  let n=0, voltas=8+i*6;
+  const t=setInterval(()=>{
+    el.textContent=String(n++%10);
+    el.classList.add('gira'); setTimeout(()=>el.classList.remove('gira'),85);
+    if(n>voltas){clearInterval(t); el.textContent=d;}
+  }, 60+i*14);
+});
+
+const serie=(()=>{let p=3180,s=7;const r=()=>(s=(s*9301+49297)%233280)/233280;
+  return Array.from({length:61},(_,i)=>{p+=(r()-.52)*260-(i<34?16:-9);
+  return Math.round(Math.min(3980,Math.max(1847,p)));});})();
+const lo=Math.min(...serie),hi=Math.max(...serie);
+const pts=serie.map((v,i)=>[i/(serie.length-1)*600,102-(v-lo)/(hi-lo)*92]);
+const d=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+const iLo=serie.indexOf(lo);
+document.getElementById('chart').innerHTML=`
+  <path d="${d} L600 110 L0 110 Z" fill="#C6FF4F" opacity=".12"/>
+  <path d="${d}" fill="none" stroke="#C6FF4F" stroke-width="2"/>
+  <circle cx="${pts[iLo][0].toFixed(1)}" cy="${pts[iLo][1].toFixed(1)}" r="4" fill="#C6FF4F"/>
+  <circle cx="600" cy="${pts.at(-1)[1].toFixed(1)}" r="4" fill="#FFC400"/>`;
+</script>
+</body>
+</html>

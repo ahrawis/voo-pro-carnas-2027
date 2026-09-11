@@ -1,0 +1,71 @@
+{
+  "atualizado_em": "2026-09-10T22:18:29-03:00",
+  "moeda": "BRL",
+  "embarque": "2027-02-05T17:25:00-03:00",
+  "atual": {
+    "preco": 1476.0,
+    "moeda": "BRL",
+    "destino": "GIG",
+    "ida": {
+      "data": "2027-02-05",
+      "partida": "17:25",
+      "chegada": "19:20",
+      "chega_em": "2027-02-05",
+      "cia": "Gol Transportes Aéreos",
+      "voo": "G3 2089",
+      "paradas": 0,
+      "duracao": 115
+    },
+    "volta": {
+      "data": "2027-02-10",
+      "partida": "19:15",
+      "chegada": "22:55",
+      "chega_em": "2027-02-10",
+      "cia": "Gol Transportes Aéreos",
+      "voo": "G3 1962",
+      "paradas": 1,
+      "duracao": 220
+    },
+    "link": "https://www.google.com/travel/flights?q=Flights%20to%20GIG%20from%20POA%20on%202027-02-05%20through%202027-02-10"
+  },
+  "combinacoes": [
+    {
+      "destino": "GIG",
+      "volta": "2027-02-10",
+      "preco": 1476.0
+    },
+    {
+      "destino": "GIG",
+      "volta": "2027-02-11",
+      "preco": 1590.0
+    },
+    {
+      "destino": "SDU",
+      "volta": "2027-02-10",
+      "preco": 1932.0
+    },
+    {
+      "destino": "SDU",
+      "volta": "2027-02-11",
+      "preco": 2868.0
+    }
+  ],
+  "resumo": {
+    "menor": 1476.0,
+    "maior": 1476.0,
+    "media": 1476.0,
+    "leituras": 1,
+    "menor_em": "2026-09-10"
+  },
+  "veredicto": {
+    "codigo": "calibrando",
+    "titulo": "Calibrando",
+    "nota": "faltam 9 leituras pra base de comparação ficar honesta"
+  },
+  "historico": [
+    {
+      "data": "2026-09-10",
+      "preco": 1476.0
+    }
+  ]
+}
