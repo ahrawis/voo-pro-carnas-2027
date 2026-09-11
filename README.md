@@ -3,9 +3,10 @@
 Site do grupo que acompanha o preço da passagem **Porto Alegre → Rio** no feriado
 de Carnaval de 2027. Atualiza sozinho, uma vez por dia.
 
-- `index.html` — o site inteiro, num arquivo só. Lê `dados.json` e desenha.
-- `coleta.py` — pesquisa os preços no Google Flights (via a lib `flights`) e grava `dados.json`.
-- `dados.json` — preço de hoje, as quatro combinações e o histórico completo.
+- `public/index.html` — o site inteiro, num arquivo só. Lê `dados.json` e desenha.
+- `public/dados.json` — preço de hoje, as quatro combinações e o histórico completo.
+- `coleta.py` — pesquisa os preços no Google Flights (via a lib `flights`) e grava o JSON.
+- `wrangler.jsonc` — diz ao Cloudflare que isto é site estático e que a pasta é `public/`.
 - `.github/workflows/preco.yml` — roda a coleta todo dia às 09:00 e faz commit do resultado.
 
 ## A janela do grupo
@@ -41,15 +42,20 @@ Pra ver o site local, precisa de um servidor (o `fetch` do `dados.json` não
 funciona abrindo o arquivo direto):
 
 ```bash
-python -m http.server 8777
+python -m http.server 8777 --directory public
 ```
 
-## Publicando no Cloudflare Pages
+## Publicando no Cloudflare
 
-1. Suba este diretório como um repositório no GitHub.
-2. No Cloudflare Pages: **Create a project → Connect to Git**, escolha o repo.
-3. Build command: deixe **vazio**. Build output directory: `/`.
-4. Salve. Cada commit do robô republica o site sozinho.
+O dashboard atual importa repositório como **Worker** (não como Pages), e Worker
+só sobe site estático se existir um `wrangler.jsonc` — sem ele o deploy termina
+"sem rotas ativas", que é exatamente o que aconteceu na primeira tentativa.
+
+O `wrangler.jsonc` deste repo já resolve isso: declara `assets.directory` como
+`public/` e liga o endereço `workers.dev`. Cada push republica sozinho.
+
+Só `public/` vai pro ar. O `coleta.py`, o workflow e os rascunhos de design
+ficam no repositório mas fora do site.
 
 O GitHub Actions já vem configurado; a única coisa a conferir é
 **Settings → Actions → General → Workflow permissions → Read and write**, senão

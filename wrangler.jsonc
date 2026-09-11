@@ -1,0 +1,11 @@
+{
+  // Só serve arquivo estático — não tem código de Worker nenhum aqui.
+  // "public" contém apenas index.html e dados.json; o coleta.py e o workflow
+  // ficam de fora de propósito, pra não virarem página no ar.
+  "name": "voo-pro-carnas-2027",
+  "compatibility_date": "2026-09-01",
+  "workers_dev": true,
+  "assets": {
+    "directory": "./public"
+  }
+}

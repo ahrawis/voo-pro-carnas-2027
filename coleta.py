@@ -20,7 +20,8 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Dict, List, Optional
 
-DADOS = Path(__file__).parent / "dados.json"
+# o site e servido a partir de public/, entao o JSON mora junto com o index.html
+DADOS = Path(__file__).parent / "public" / "dados.json"
 FUSO_BR = timezone(timedelta(hours=-3))
 
 IDA = "2027-02-05"
