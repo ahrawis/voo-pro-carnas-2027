@@ -115,6 +115,7 @@ a{color:var(--ouro)}
 .trechos{display:flex;gap:26px;flex-wrap:wrap;font-size:15px}
 .trecho b{display:block;font-family:"Bungee",system-ui,sans-serif;font-size:17px;letter-spacing:-.01em}
 .trecho span{color:#5B4A6B}
+.escala{font-style:normal;font-weight:700;color:#C4123F}   /* vermelho sobre o creme do cartão */
 .voo a{
   background:var(--tinta);color:var(--creme);text-decoration:none;
   font-weight:700;font-size:15px;padding:12px 20px;border-radius:999px;white-space:nowrap;
@@ -310,7 +311,11 @@ function corote(atual, menor, maior){
 function desenhar(d){
   const a = d.atual, r = d.resumo;
 
-  document.getElementById('rota').textContent = `POA ✈ ${a.destino} · ${AEROPORTOS[a.destino] || a.destino}`;
+  // o robô vigia os dois aeroportos do Rio; mostrar só o vencedor do dia dava a
+  // entender que a outra rota nem era consultada
+  const vigiados = [...new Set((d.combinacoes || []).map(c => c.destino))];
+  document.getElementById('rota').textContent =
+    `POA ✈ Rio · ${(vigiados.length ? vigiados : [a.destino]).join(' e ')}`;
   contador(d.embarque);
 
   document.getElementById('valor').innerHTML = `<sup>R$</sup>${real(a.preco)}`;
@@ -334,8 +339,11 @@ function desenhar(d){
     [a.destino + ' → POA', a.volta],
   ].map(([rot, t]) => {
     const chega = t.chega_em !== t.data ? `${t.chegada} ${dataCurta(t.chega_em)}` : t.chegada;
+    const escala = t.paradas
+      ? `<em class="escala">${paradas(t.paradas)}</em>`   // escala muda a viagem, então grita
+      : paradas(t.paradas);
     return `<div class="trecho"><b>${rot}</b>
-      <span>${dataCurta(t.data)} · ${t.partida} → ${chega} · ${paradas(t.paradas)} · ${t.cia}</span></div>`;
+      <span>${dataCurta(t.data)} · ${t.partida} → ${chega} · ${escala} · ${t.cia}</span></div>`;
   }).join('');
   document.getElementById('link-google').href = a.link;
 
