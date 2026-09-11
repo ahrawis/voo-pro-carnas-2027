@@ -37,10 +37,32 @@ VOLTAS = [
 # de quinta inteira e sobra so a de quarta a noite.
 POUSO_LIMITE = datetime(2027, 2, 11, 8, 30)
 
+MOEDA = "BRL"
+# O Google responde na moeda de quem chamou: do runner americano do GitHub
+# Actions vinha USD, e um R$ 290 falso entrou no historico. Estes parametros
+# prendem a resposta em real, rode de onde rodar.
+REGIAO = "?hl=pt-BR&gl=BR&curr=BRL"
+
 # limiares do veredicto, em relacao ao historico da propria rota
 MIN_LEITURAS = 10       # abaixo disso nao ha base para opinar
 FOLGA_COMPRAR = 1.08    # ate 8% acima do minimo historico = compra
 MIRA_JUSTO = 0.90       # ate 90% do caminho entre minimo e media = justo
+
+
+def prender_em_reais() -> None:
+    """Prega a regiao brasileira na URL de busca. Idempotente."""
+    from fli.search.flights import SearchFlights
+
+    if REGIAO not in SearchFlights.BASE_URL:
+        SearchFlights.BASE_URL += REGIAO
+
+
+def conferir_moeda(moeda: Optional[str]) -> None:
+    """Um preco em moeda errada e pior que preco nenhum -- ele suja o historico."""
+    if (moeda or MOEDA) != MOEDA:
+        raise RuntimeError(
+            "Google respondeu em {}, nao em {}. Leitura descartada.".format(moeda, MOEDA)
+        )
 
 
 def _hora(dt: datetime) -> str:
@@ -88,6 +110,7 @@ def buscar_combinacao(destino: str, volta: str, cedo: Optional[int], tarde: Opti
     )
     from fli.search import SearchFlights
 
+    prender_em_reais()
     origem, chegada = Airport.POA, getattr(Airport, destino)
     segmentos = [
         FlightSegment(
@@ -121,6 +144,7 @@ def buscar_combinacao(destino: str, volta: str, cedo: Optional[int], tarde: Opti
         ida_voo, volta_voo = partes[0], partes[-1]
         if not cabe_na_janela(ida_voo, volta_voo):
             continue
+        conferir_moeda(volta_voo.currency)
         preco = volta_voo.price  # no round-trip, a volta carrega o total da combinacao
         if melhor is None or preco < melhor["preco"]:
             melhor = {
@@ -235,6 +259,17 @@ def testes() -> None:
     assert cabe_na_janela(sexta_noite, madrugada), "madrugada de quinta cabe"
     assert cabe_na_janela(sexta_noite, quarta_noite), "quarta a noite cabe"
     assert cabe_na_janela(sexta_noite, red_eye), "o voo das 05:30 pousando 07:40 cabe"
+
+    # moeda errada tem que explodir, nao virar linha no historico
+    conferir_moeda("BRL")
+    conferir_moeda(None)
+    for ruim in ("USD", "EUR"):
+        try:
+            conferir_moeda(ruim)
+        except RuntimeError:
+            pass
+        else:
+            raise AssertionError("{} passou pela trava de moeda".format(ruim))
     assert not cabe_na_janela(sexta_tarde, madrugada), "ida antes das 17h faz faltar sexta"
     assert not cabe_na_janela(sexta_noite, manha_quinta), "pouso 11h faz faltar quinta"
 

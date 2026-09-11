@@ -22,6 +22,13 @@ isso o limite é 08:30 e não 07:00.
 Destinos: Galeão (GIG) e Santos Dumont (SDU). São 2 destinos × 2 voltas = 4
 buscas por dia, e o site mostra a mais barata em destaque e as outras três ao lado.
 
+## Moeda
+
+O Google responde na moeda de quem chamou — o runner do GitHub Actions fica nos
+EUA e devolvia dólar. A coleta prende a busca em `hl=pt-BR&gl=BR&curr=BRL` e,
+se mesmo assim vier outra moeda, descarta a leitura em vez de gravar. Um buraco
+de um dia no gráfico é melhor que um R$ 290 que na verdade eram US$ 290.
+
 ## Rodando na mão
 
 ```bash
