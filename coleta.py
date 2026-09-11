@@ -6,8 +6,12 @@ resultado em dados.json -- que e o unico arquivo que o site le.
 
 Janela do grupo (ninguem pode faltar ao trabalho):
   - ida: sexta 05/02/2027, partindo de POA das 17h em diante
-  - volta: precisa pousar em POA ate as 8h30 de quinta 11/02 -- ou seja, voo de
-    quarta a noite, ou o red-eye que sai do Rio de madrugada
+  - volta: precisa pousar em POA ate as 8h30 de quinta 11/02
+
+Dentro dessa regra cabem voltas bem diferentes -- sair do Rio na quarta de manha
+e sair na madrugada de quinta custam precos diferentes. O coletor busca as tres
+janelas e o site mostra as tres, porque a diferenca entre elas e o preco de
+algumas horas a mais de carnaval, e essa escolha e do grupo.
 
 Uso:
     python coleta.py            # coleta e grava dados.json
@@ -29,8 +33,9 @@ IDA_A_PARTIR_DE = 17  # hora local em POA
 DESTINOS = ["GIG", "SDU"]
 # (data da volta, hora minima de partida, hora maxima de chegada em POA)
 VOLTAS = [
-    ("2027-02-10", 19, None),  # quarta a noite
-    ("2027-02-11", None, 9),   # red-eye de quinta; o corte fino fica em cabe_na_janela
+    ("2027-02-10", None, None),  # quarta, dia todo -- costuma ser a mais barata
+    ("2027-02-10", 19, None),    # quarta so a noite -- paga pra ficar ate o fim
+    ("2027-02-11", None, 9),     # red-eye de quinta; o corte fino fica em cabe_na_janela
 ]
 # Regra que manda de verdade: tem que pousar em POA a tempo de trabalhar quinta.
 # 08:30 nao e um numero redondo a toa -- o voo mais cedo do Rio pousa 07:40
@@ -203,6 +208,30 @@ def veredicto(preco: float, historico: List[Dict]) -> Dict:
                 sum(1 for p in precos if p < preco))}
 
 
+def combinacoes(achados: List[Dict]) -> List[Dict]:
+    """Lista as opcoes da mais barata pra mais cara, sem repetir o mesmo voo.
+
+    As janelas "quarta dia todo" e "quarta a noite" se sobrepoem: quando a mais
+    barata do dia ja e um voo noturno, as duas buscas devolvem o mesmo voo e so
+    uma linha faz sentido na tela.
+    """
+    vistos = set()
+    saida = []
+    for a in sorted(achados, key=lambda a: a["preco"]):
+        chave = (a["destino"], a["volta"]["data"], a["volta"]["partida"])
+        if chave in vistos:
+            continue
+        vistos.add(chave)
+        saida.append({
+            "destino": a["destino"],
+            "volta": a["volta"]["data"],
+            "partida": a["volta"]["partida"],
+            "paradas": a["volta"]["paradas"],
+            "preco": a["preco"],
+        })
+    return saida
+
+
 def montar(achados: List[Dict], anterior: Dict, agora: datetime) -> Dict:
     """Monta o dados.json novo a partir da coleta de hoje e do arquivo anterior."""
     hoje = agora.strftime("%Y-%m-%d")
@@ -218,10 +247,7 @@ def montar(achados: List[Dict], anterior: Dict, agora: datetime) -> Dict:
         "moeda": melhor["moeda"],
         "embarque": "{}T{}:00-03:00".format(melhor["ida"]["data"], melhor["ida"]["partida"]),
         "atual": melhor,
-        "combinacoes": sorted(
-            [{"destino": a["destino"], "volta": a["volta"]["data"], "preco": a["preco"]} for a in achados],
-            key=lambda c: c["preco"],
-        ),
+        "combinacoes": combinacoes(achados),
         "resumo": {
             "menor": min(precos),
             "maior": max(precos),
@@ -274,16 +300,27 @@ def testes() -> None:
     assert not cabe_na_janela(sexta_tarde, madrugada), "ida antes das 17h faz faltar sexta"
     assert not cabe_na_janela(sexta_noite, manha_quinta), "pouso 11h faz faltar quinta"
 
+    def _achado(preco, destino, volta_data, volta_hora, ida_hora="17:25"):
+        return {"preco": preco, "moeda": "BRL", "destino": destino, "link": "x",
+                "ida": {"data": IDA, "partida": ida_hora},
+                "volta": {"data": volta_data, "partida": volta_hora, "paradas": 1}}
+
     achados = [
-        {"preco": 1900.0, "moeda": "BRL", "destino": "SDU", "link": "x",
-         "ida": {"data": IDA, "partida": "18:40"}, "volta": {"data": "2027-02-11"}},
-        {"preco": 1476.0, "moeda": "BRL", "destino": "GIG", "link": "x",
-         "ida": {"data": IDA, "partida": "17:25"}, "volta": {"data": "2027-02-10"}},
+        _achado(1900.0, "SDU", "2027-02-11", "05:30", ida_hora="18:40"),
+        _achado(1208.0, "GIG", "2027-02-10", "10:20"),
+        _achado(1476.0, "GIG", "2027-02-10", "19:15"),
+        # a janela "quarta dia todo" e a "quarta a noite" as vezes caem no mesmo voo
+        _achado(1476.0, "GIG", "2027-02-10", "19:15"),
     ]
+
+    opcoes = combinacoes(achados)
+    assert [o["preco"] for o in opcoes] == [1208.0, 1476.0, 1900.0], "ordena da mais barata"
+    assert len(opcoes) == 3, "o voo repetido vira uma linha so"
+    assert opcoes[0]["partida"] == "10:20", "o horario da volta distingue as opcoes"
     agora = datetime(2026, 9, 10, 9, 0, tzinfo=FUSO_BR)
     saida = montar(achados, {"historico": [{"data": "2026-09-09", "preco": 1600.0}]}, agora)
-    assert saida["atual"]["preco"] == 1476.0, "o mais barato entre as combinacoes vence"
-    assert saida["resumo"]["menor"] == 1476.0
+    assert saida["atual"]["preco"] == 1208.0, "o mais barato entre as combinacoes vence"
+    assert saida["resumo"]["menor"] == 1208.0
     assert saida["resumo"]["leituras"] == 2
     assert saida["combinacoes"][0]["destino"] == "GIG", "combinacoes saem da mais barata pra mais cara"
     assert saida["embarque"] == "2027-02-05T17:25:00-03:00"
