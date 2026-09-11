@@ -129,7 +129,12 @@ def buscar_combinacao(destino: str, volta: str, cedo: Optional[int], tarde: Opti
             departure_airport=[[chegada, 0]],
             arrival_airport=[[origem, 0]],
             travel_date=volta,
-            time_restrictions=TimeRestrictions(earliest_departure=cedo, latest_arrival=tarde),
+            # janela aberta manda None, nao um TimeRestrictions vazio: e exatamente
+            # a mesma requisicao que uma busca sem filtro nenhum
+            time_restrictions=(
+                TimeRestrictions(earliest_departure=cedo, latest_arrival=tarde)
+                if (cedo or tarde) else None
+            ),
         ),
     ]
     filtros = FlightSearchFilters(
