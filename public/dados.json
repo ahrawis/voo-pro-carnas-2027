@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-09-11T12:25:23-03:00",
+  "atualizado_em": "2026-09-12T11:32:43-03:00",
   "moeda": "BRL",
   "embarque": "2027-02-05T17:25:00-03:00",
   "atual": {
@@ -37,6 +37,13 @@
       "preco": 1246.0
     },
     {
+      "destino": "SDU",
+      "volta": "2027-02-10",
+      "partida": "06:10",
+      "paradas": 1,
+      "preco": 1250.0
+    },
+    {
       "destino": "GIG",
       "volta": "2027-02-10",
       "partida": "19:15",
@@ -44,25 +51,18 @@
       "preco": 1553.0
     },
     {
-      "destino": "GIG",
-      "volta": "2027-02-11",
-      "partida": "05:30",
-      "paradas": 0,
-      "preco": 1590.0
-    },
-    {
-      "destino": "SDU",
-      "volta": "2027-02-10",
-      "partida": "06:10",
-      "paradas": 1,
-      "preco": 1640.0
-    },
-    {
       "destino": "SDU",
       "volta": "2027-02-10",
       "partida": "19:20",
       "paradas": 1,
-      "preco": 2003.0
+      "preco": 1740.0
+    },
+    {
+      "destino": "GIG",
+      "volta": "2027-02-11",
+      "partida": "05:30",
+      "paradas": 0,
+      "preco": 1901.0
     },
     {
       "destino": "SDU",
@@ -75,14 +75,14 @@
   "resumo": {
     "menor": 1208.0,
     "maior": 1246.0,
-    "media": 1227.0,
-    "leituras": 2,
+    "media": 1233.33,
+    "leituras": 3,
     "menor_em": "2026-09-10"
   },
   "veredicto": {
     "codigo": "calibrando",
     "titulo": "Calibrando",
-    "nota": "faltam 8 leituras pra base de comparação ficar honesta"
+    "nota": "faltam 7 leituras pra base de comparação ficar honesta"
   },
   "historico": [
     {
@@ -91,6 +91,10 @@
     },
     {
       "data": "2026-09-11",
+      "preco": 1246.0
+    },
+    {
+      "data": "2026-09-12",
       "preco": 1246.0
     }
   ]
