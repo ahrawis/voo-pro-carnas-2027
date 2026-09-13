@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-09-12T11:32:43-03:00",
+  "atualizado_em": "2026-09-13T12:12:24-03:00",
   "moeda": "BRL",
   "embarque": "2027-02-05T17:25:00-03:00",
   "atual": {
@@ -44,27 +44,6 @@
       "preco": 1250.0
     },
     {
-      "destino": "GIG",
-      "volta": "2027-02-10",
-      "partida": "19:15",
-      "paradas": 1,
-      "preco": 1553.0
-    },
-    {
-      "destino": "SDU",
-      "volta": "2027-02-10",
-      "partida": "19:20",
-      "paradas": 1,
-      "preco": 1740.0
-    },
-    {
-      "destino": "GIG",
-      "volta": "2027-02-11",
-      "partida": "05:30",
-      "paradas": 0,
-      "preco": 1901.0
-    },
-    {
       "destino": "SDU",
       "volta": "2027-02-11",
       "partida": "06:20",
@@ -75,14 +54,14 @@
   "resumo": {
     "menor": 1208.0,
     "maior": 1246.0,
-    "media": 1233.33,
-    "leituras": 3,
+    "media": 1236.5,
+    "leituras": 4,
     "menor_em": "2026-09-10"
   },
   "veredicto": {
     "codigo": "calibrando",
     "titulo": "Calibrando",
-    "nota": "faltam 7 leituras pra base de comparação ficar honesta"
+    "nota": "faltam 6 leituras pra base de comparação ficar honesta"
   },
   "historico": [
     {
@@ -95,6 +74,10 @@
     },
     {
       "data": "2026-09-12",
+      "preco": 1246.0
+    },
+    {
+      "data": "2026-09-13",
       "preco": 1246.0
     }
   ]
