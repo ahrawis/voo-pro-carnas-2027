@@ -1,9 +1,9 @@
 {
-  "atualizado_em": "2026-09-25T13:05:04-03:00",
+  "atualizado_em": "2026-09-26T12:16:21-03:00",
   "moeda": "BRL",
   "embarque": "2027-02-05T21:45:00-03:00",
   "atual": {
-    "preco": 1265.0,
+    "preco": 1174.0,
     "moeda": "BRL",
     "destino": "GIG",
     "ida": {
@@ -19,12 +19,12 @@
     "volta": {
       "data": "2027-02-10",
       "partida": "07:00",
-      "chegada": "17:05",
+      "chegada": "19:15",
       "chega_em": "2027-02-10",
       "cia": "LATAM Chile",
       "voo": "LA 3660",
       "paradas": 2,
-      "duracao": 605
+      "duracao": 735
     },
     "link": "https://www.google.com/travel/flights?q=Flights%20to%20GIG%20from%20POA%20on%202027-02-05%20through%202027-02-10"
   },
@@ -34,35 +34,21 @@
       "volta": "2027-02-10",
       "partida": "07:00",
       "paradas": 2,
-      "preco": 1265.0
+      "preco": 1174.0
     },
     {
       "destino": "GIG",
       "volta": "2027-02-10",
       "partida": "20:35",
       "paradas": 2,
-      "preco": 1265.0
-    },
-    {
-      "destino": "SDU",
-      "volta": "2027-02-10",
-      "partida": "06:00",
-      "paradas": 2,
-      "preco": 1633.0
+      "preco": 1580.0
     },
     {
       "destino": "GIG",
       "volta": "2027-02-11",
-      "partida": "05:30",
-      "paradas": 0,
-      "preco": 1720.0
-    },
-    {
-      "destino": "SDU",
-      "volta": "2027-02-10",
-      "partida": "20:45",
+      "partida": "04:40",
       "paradas": 1,
-      "preco": 1765.0
+      "preco": 1629.0
     },
     {
       "destino": "SDU",
@@ -70,19 +56,33 @@
       "partida": "06:20",
       "paradas": 0,
       "preco": 2031.0
+    },
+    {
+      "destino": "SDU",
+      "volta": "2027-02-10",
+      "partida": "07:50",
+      "paradas": 1,
+      "preco": 2045.0
+    },
+    {
+      "destino": "SDU",
+      "volta": "2027-02-10",
+      "partida": "19:40",
+      "paradas": 1,
+      "preco": 2273.0
     }
   ],
   "resumo": {
     "menor": 1099.0,
     "maior": 1275.0,
-    "media": 1194.19,
-    "leituras": 16,
+    "media": 1193.0,
+    "leituras": 17,
     "menor_em": "2026-09-15"
   },
   "veredicto": {
-    "codigo": "esperar",
-    "titulo": "Esperar",
-    "nota": "acima da média. Já caiu mais barato que isso em 13 das leituras."
+    "codigo": "comprar",
+    "titulo": "Comprar agora!",
+    "nota": "tá colado no menor preço que já apareceu. Não espera passar."
   },
   "historico": [
     {
@@ -148,6 +148,10 @@
     {
       "data": "2026-09-25",
       "preco": 1265.0
+    },
+    {
+      "data": "2026-09-26",
+      "preco": 1174.0
     }
   ]
 }
