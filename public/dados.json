@@ -1,9 +1,9 @@
 {
-  "atualizado_em": "2026-09-26T12:16:21-03:00",
+  "atualizado_em": "2026-09-27T12:56:14-03:00",
   "moeda": "BRL",
   "embarque": "2027-02-05T21:45:00-03:00",
   "atual": {
-    "preco": 1174.0,
+    "preco": 1265.0,
     "moeda": "BRL",
     "destino": "GIG",
     "ida": {
@@ -34,7 +34,7 @@
       "volta": "2027-02-10",
       "partida": "07:00",
       "paradas": 2,
-      "preco": 1174.0
+      "preco": 1265.0
     },
     {
       "destino": "GIG",
@@ -60,9 +60,9 @@
     {
       "destino": "SDU",
       "volta": "2027-02-10",
-      "partida": "07:50",
+      "partida": "09:40",
       "paradas": 1,
-      "preco": 2045.0
+      "preco": 2085.0
     },
     {
       "destino": "SDU",
@@ -75,14 +75,14 @@
   "resumo": {
     "menor": 1099.0,
     "maior": 1275.0,
-    "media": 1193.0,
-    "leituras": 17,
+    "media": 1197.0,
+    "leituras": 18,
     "menor_em": "2026-09-15"
   },
   "veredicto": {
-    "codigo": "comprar",
-    "titulo": "Comprar agora!",
-    "nota": "tá colado no menor preço que já apareceu. Não espera passar."
+    "codigo": "esperar",
+    "titulo": "Esperar",
+    "nota": "acima da média. Já caiu mais barato que isso em 14 das leituras."
   },
   "historico": [
     {
@@ -152,6 +152,10 @@
     {
       "data": "2026-09-26",
       "preco": 1174.0
+    },
+    {
+      "data": "2026-09-27",
+      "preco": 1265.0
     }
   ]
 }
