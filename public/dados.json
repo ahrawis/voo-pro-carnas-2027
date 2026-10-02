@@ -1,20 +1,20 @@
 {
-  "atualizado_em": "2026-10-01T14:38:59-03:00",
+  "atualizado_em": "2026-10-02T13:58:17-03:00",
   "moeda": "BRL",
-  "embarque": "2027-02-05T20:05:00-03:00",
+  "embarque": "2027-02-05T19:40:00-03:00",
   "atual": {
-    "preco": 1285.0,
+    "preco": 1283.0,
     "moeda": "BRL",
     "destino": "GIG",
     "ida": {
       "data": "2027-02-05",
-      "partida": "20:05",
-      "chegada": "09:55",
+      "partida": "19:40",
+      "chegada": "06:05",
       "chega_em": "2027-02-06",
-      "cia": "LATAM Chile",
-      "voo": "LA 4526",
-      "paradas": 2,
-      "duracao": 830
+      "cia": "Gol Transportes Aéreos",
+      "voo": "G3 1239",
+      "paradas": 1,
+      "duracao": 625
     },
     "volta": {
       "data": "2027-02-10",
@@ -34,28 +34,28 @@
       "volta": "2027-02-10",
       "partida": "07:00",
       "paradas": 2,
-      "preco": 1285.0
+      "preco": 1283.0
+    },
+    {
+      "destino": "SDU",
+      "volta": "2027-02-10",
+      "partida": "18:05",
+      "paradas": 1,
+      "preco": 1641.0
     },
     {
       "destino": "GIG",
       "volta": "2027-02-10",
-      "partida": "20:35",
-      "paradas": 2,
-      "preco": 1657.0
+      "partida": "19:15",
+      "paradas": 1,
+      "preco": 1748.0
     },
     {
       "destino": "GIG",
       "volta": "2027-02-11",
       "partida": "05:30",
       "paradas": 0,
-      "preco": 2141.0
-    },
-    {
-      "destino": "SDU",
-      "volta": "2027-02-10",
-      "partida": "09:40",
-      "paradas": 1,
-      "preco": 2224.0
+      "preco": 1834.0
     },
     {
       "destino": "SDU",
@@ -75,8 +75,8 @@
   "resumo": {
     "menor": 1088.0,
     "maior": 1285.0,
-    "media": 1202.23,
-    "leituras": 22,
+    "media": 1205.74,
+    "leituras": 23,
     "menor_em": "2026-09-28"
   },
   "veredicto": {
@@ -172,6 +172,10 @@
     {
       "data": "2026-10-01",
       "preco": 1285.0
+    },
+    {
+      "data": "2026-10-02",
+      "preco": 1283.0
     }
   ]
 }
