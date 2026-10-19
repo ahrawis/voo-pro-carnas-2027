@@ -1,81 +1,74 @@
 {
-  "atualizado_em": "2026-10-18T12:01:32-03:00",
+  "atualizado_em": "2026-10-19T14:53:25-03:00",
   "moeda": "BRL",
-  "embarque": "2027-02-05T17:30:00-03:00",
+  "embarque": "2027-02-05T21:45:00-03:00",
   "atual": {
-    "preco": 1796.0,
+    "preco": 1844.0,
     "moeda": "BRL",
-    "destino": "SDU",
+    "destino": "GIG",
     "ida": {
       "data": "2027-02-05",
-      "partida": "17:30",
-      "chegada": "22:20",
-      "chega_em": "2027-02-05",
-      "cia": "Gol Transportes Aéreos",
-      "voo": "G3 1795",
+      "partida": "21:45",
+      "chegada": "07:25",
+      "chega_em": "2027-02-06",
+      "cia": "LATAM Chile",
+      "voo": "LA 4500",
       "paradas": 1,
-      "duracao": 290
+      "duracao": 580
     },
     "volta": {
       "data": "2027-02-10",
-      "partida": "07:05",
-      "chegada": "16:50",
+      "partida": "20:05",
+      "chegada": "22:15",
       "chega_em": "2027-02-10",
-      "cia": "Gol Transportes Aéreos",
-      "voo": "G3 1799",
-      "paradas": 2,
-      "duracao": 585
+      "cia": "LATAM Chile",
+      "voo": "LA 4674",
+      "paradas": 0,
+      "duracao": 130
     },
-    "link": "https://www.google.com/travel/flights?q=Flights%20to%20SDU%20from%20POA%20on%202027-02-05%20through%202027-02-10"
+    "link": "https://www.google.com/travel/flights?q=Flights%20to%20GIG%20from%20POA%20on%202027-02-05%20through%202027-02-10"
   },
   "combinacoes": [
-    {
-      "destino": "SDU",
-      "volta": "2027-02-10",
-      "partida": "07:05",
-      "paradas": 2,
-      "preco": 1796.0
-    },
     {
       "destino": "GIG",
       "volta": "2027-02-10",
       "partida": "20:05",
       "paradas": 0,
-      "preco": 1896.0
-    },
-    {
-      "destino": "GIG",
-      "volta": "2027-02-11",
-      "partida": "04:40",
-      "paradas": 1,
-      "preco": 1965.0
-    },
-    {
-      "destino": "SDU",
-      "volta": "2027-02-10",
-      "partida": "19:05",
-      "paradas": 1,
-      "preco": 2785.0
+      "preco": 1844.0
     },
     {
       "destino": "SDU",
       "volta": "2027-02-11",
       "partida": "06:20",
       "paradas": 0,
-      "preco": 3457.0
+      "preco": 2073.0
+    },
+    {
+      "destino": "SDU",
+      "volta": "2027-02-10",
+      "partida": "15:15",
+      "paradas": 1,
+      "preco": 2086.0
+    },
+    {
+      "destino": "SDU",
+      "volta": "2027-02-10",
+      "partida": "19:20",
+      "paradas": 1,
+      "preco": 2761.0
     }
   ],
   "resumo": {
     "menor": 1088.0,
     "maior": 2388.0,
-    "media": 1348.18,
-    "leituras": 38,
+    "media": 1360.9,
+    "leituras": 39,
     "menor_em": "2026-09-28"
   },
   "veredicto": {
     "codigo": "esperar",
     "titulo": "Esperar",
-    "nota": "acima da média. Já caiu mais barato que isso em 36 das leituras."
+    "nota": "acima da média. Já caiu mais barato que isso em 37 das leituras."
   },
   "historico": [
     {
@@ -229,6 +222,10 @@
     {
       "data": "2026-10-18",
       "preco": 1796.0
+    },
+    {
+      "data": "2026-10-19",
+      "preco": 1844.0
     }
   ]
 }
