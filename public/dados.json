@@ -1,20 +1,20 @@
 {
-  "atualizado_em": "2026-10-23T13:02:58-03:00",
+  "atualizado_em": "2026-10-24T12:02:41-03:00",
   "moeda": "BRL",
-  "embarque": "2027-02-05T17:25:00-03:00",
+  "embarque": "2027-02-05T17:30:00-03:00",
   "atual": {
-    "preco": 1915.0,
+    "preco": 1589.0,
     "moeda": "BRL",
     "destino": "GIG",
     "ida": {
       "data": "2027-02-05",
-      "partida": "17:25",
-      "chegada": "19:20",
-      "chega_em": "2027-02-05",
+      "partida": "17:30",
+      "chegada": "07:15",
+      "chega_em": "2027-02-06",
       "cia": "Gol Transportes Aéreos",
-      "voo": "G3 2089",
-      "paradas": 0,
-      "duracao": 115
+      "voo": "G3 1795",
+      "paradas": 2,
+      "duracao": 825
     },
     "volta": {
       "data": "2027-02-10",
@@ -34,14 +34,14 @@
       "volta": "2027-02-10",
       "partida": "08:35",
       "paradas": 2,
-      "preco": 1915.0
+      "preco": 1589.0
     },
     {
       "destino": "SDU",
       "volta": "2027-02-10",
       "partida": "07:05",
       "paradas": 2,
-      "preco": 2249.0
+      "preco": 2149.0
     },
     {
       "destino": "GIG",
@@ -60,29 +60,29 @@
     {
       "destino": "GIG",
       "volta": "2027-02-10",
-      "partida": "20:40",
-      "paradas": 0,
-      "preco": 3120.0
+      "partida": "19:50",
+      "paradas": 1,
+      "preco": 3055.0
     },
     {
       "destino": "SDU",
       "volta": "2027-02-11",
       "partida": "06:20",
       "paradas": 0,
-      "preco": 3339.0
+      "preco": 3544.0
     }
   ],
   "resumo": {
     "menor": 1088.0,
     "maior": 2388.0,
-    "media": 1412.67,
-    "leituras": 43,
+    "media": 1416.68,
+    "leituras": 44,
     "menor_em": "2026-09-28"
   },
   "veredicto": {
     "codigo": "esperar",
     "titulo": "Esperar",
-    "nota": "acima da média. Já caiu mais barato que isso em 39 das leituras."
+    "nota": "acima da média. Já caiu mais barato que isso em 33 das leituras."
   },
   "historico": [
     {
@@ -256,6 +256,10 @@
     {
       "data": "2026-10-23",
       "preco": 1915.0
+    },
+    {
+      "data": "2026-10-24",
+      "preco": 1589.0
     }
   ]
 }
