@@ -1,20 +1,20 @@
 {
-  "atualizado_em": "2026-10-24T12:02:41-03:00",
+  "atualizado_em": "2026-10-25T12:11:14-03:00",
   "moeda": "BRL",
   "embarque": "2027-02-05T17:30:00-03:00",
   "atual": {
-    "preco": 1589.0,
+    "preco": 1829.0,
     "moeda": "BRL",
     "destino": "GIG",
     "ida": {
       "data": "2027-02-05",
       "partida": "17:30",
-      "chegada": "07:15",
-      "chega_em": "2027-02-06",
+      "chegada": "23:20",
+      "chega_em": "2027-02-05",
       "cia": "Gol Transportes Aéreos",
       "voo": "G3 1795",
-      "paradas": 2,
-      "duracao": 825
+      "paradas": 1,
+      "duracao": 350
     },
     "volta": {
       "data": "2027-02-10",
@@ -34,7 +34,7 @@
       "volta": "2027-02-10",
       "partida": "08:35",
       "paradas": 2,
-      "preco": 1589.0
+      "preco": 1829.0
     },
     {
       "destino": "SDU",
@@ -48,7 +48,7 @@
       "volta": "2027-02-11",
       "partida": "05:30",
       "paradas": 0,
-      "preco": 2291.0
+      "preco": 2253.0
     },
     {
       "destino": "SDU",
@@ -69,20 +69,20 @@
       "volta": "2027-02-11",
       "partida": "06:20",
       "paradas": 0,
-      "preco": 3544.0
+      "preco": 3339.0
     }
   ],
   "resumo": {
     "menor": 1088.0,
     "maior": 2388.0,
-    "media": 1416.68,
-    "leituras": 44,
+    "media": 1425.84,
+    "leituras": 45,
     "menor_em": "2026-09-28"
   },
   "veredicto": {
     "codigo": "esperar",
     "titulo": "Esperar",
-    "nota": "acima da média. Já caiu mais barato que isso em 33 das leituras."
+    "nota": "acima da média. Já caiu mais barato que isso em 39 das leituras."
   },
   "historico": [
     {
@@ -260,6 +260,10 @@
     {
       "data": "2026-10-24",
       "preco": 1589.0
+    },
+    {
+      "data": "2026-10-25",
+      "preco": 1829.0
     }
   ]
 }
