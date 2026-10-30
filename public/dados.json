@@ -1,20 +1,20 @@
 {
-  "atualizado_em": "2026-10-29T14:43:32-03:00",
+  "atualizado_em": "2026-10-30T14:21:39-03:00",
   "moeda": "BRL",
-  "embarque": "2027-02-05T19:40:00-03:00",
+  "embarque": "2027-02-05T17:00:00-03:00",
   "atual": {
-    "preco": 1661.0,
+    "preco": 1913.0,
     "moeda": "BRL",
     "destino": "GIG",
     "ida": {
       "data": "2027-02-05",
-      "partida": "19:40",
-      "chegada": "07:25",
-      "chega_em": "2027-02-06",
+      "partida": "17:00",
+      "chegada": "22:15",
+      "chega_em": "2027-02-05",
       "cia": "Gol Transportes Aéreos",
-      "voo": "G3 1239",
-      "paradas": 2,
-      "duracao": 705
+      "voo": "G3 1795",
+      "paradas": 1,
+      "duracao": 315
     },
     "volta": {
       "data": "2027-02-10",
@@ -34,55 +34,27 @@
       "volta": "2027-02-10",
       "partida": "06:00",
       "paradas": 1,
-      "preco": 1661.0
-    },
-    {
-      "destino": "GIG",
-      "volta": "2027-02-10",
-      "partida": "21:25",
-      "paradas": 1,
-      "preco": 1661.0
+      "preco": 1913.0
     },
     {
       "destino": "SDU",
       "volta": "2027-02-10",
-      "partida": "06:10",
-      "paradas": 1,
-      "preco": 1986.0
-    },
-    {
-      "destino": "GIG",
-      "volta": "2027-02-11",
-      "partida": "04:40",
-      "paradas": 1,
-      "preco": 2511.0
-    },
-    {
-      "destino": "SDU",
-      "volta": "2027-02-10",
-      "partida": "19:05",
-      "paradas": 1,
-      "preco": 2542.0
-    },
-    {
-      "destino": "SDU",
-      "volta": "2027-02-11",
-      "partida": "06:20",
-      "paradas": 0,
-      "preco": 2736.0
+      "partida": "08:00",
+      "paradas": 2,
+      "preco": 2678.0
     }
   ],
   "resumo": {
     "menor": 1088.0,
     "maior": 2388.0,
-    "media": 1448.31,
-    "leituras": 49,
+    "media": 1457.6,
+    "leituras": 50,
     "menor_em": "2026-09-28"
   },
   "veredicto": {
     "codigo": "esperar",
     "titulo": "Esperar",
-    "nota": "acima da média. Já caiu mais barato que isso em 37 das leituras."
+    "nota": "acima da média. Já caiu mais barato que isso em 44 das leituras."
   },
   "historico": [
     {
@@ -280,6 +252,10 @@
     {
       "data": "2026-10-29",
       "preco": 1661.0
+    },
+    {
+      "data": "2026-10-30",
+      "preco": 1913.0
     }
   ]
 }
