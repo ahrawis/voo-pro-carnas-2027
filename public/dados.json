@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-10-31T13:27:19-03:00",
+  "atualizado_em": "2026-11-01T14:21:32-03:00",
   "moeda": "BRL",
   "embarque": "2027-02-05T19:40:00-03:00",
   "atual": {
@@ -63,13 +63,20 @@
       "partida": "19:05",
       "paradas": 1,
       "preco": 2609.0
+    },
+    {
+      "destino": "SDU",
+      "volta": "2027-02-11",
+      "partida": "06:20",
+      "paradas": 0,
+      "preco": 2736.0
     }
   ],
   "resumo": {
     "menor": 1088.0,
     "maior": 2388.0,
-    "media": 1456.49,
-    "leituras": 51,
+    "media": 1455.42,
+    "leituras": 52,
     "menor_em": "2026-09-28"
   },
   "veredicto": {
@@ -280,6 +287,10 @@
     },
     {
       "data": "2026-10-31",
+      "preco": 1401.0
+    },
+    {
+      "data": "2026-11-01",
       "preco": 1401.0
     }
   ]
