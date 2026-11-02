@@ -1,41 +1,34 @@
 {
-  "atualizado_em": "2026-11-01T14:21:32-03:00",
+  "atualizado_em": "2026-11-02T17:58:53-03:00",
   "moeda": "BRL",
   "embarque": "2027-02-05T19:40:00-03:00",
   "atual": {
-    "preco": 1401.0,
+    "preco": 1661.0,
     "moeda": "BRL",
     "destino": "GIG",
     "ida": {
       "data": "2027-02-05",
       "partida": "19:40",
-      "chegada": "06:00",
+      "chegada": "00:15",
       "chega_em": "2027-02-06",
       "cia": "Gol Transportes Aéreos",
       "voo": "G3 1239",
-      "paradas": 2,
-      "duracao": 620
+      "paradas": 1,
+      "duracao": 275
     },
     "volta": {
-      "data": "2027-02-11",
-      "partida": "05:30",
-      "chegada": "07:40",
-      "chega_em": "2027-02-11",
-      "cia": "Azul Brazilian Airlines",
-      "voo": "AD 2901",
-      "paradas": 0,
-      "duracao": 130
+      "data": "2027-02-10",
+      "partida": "06:00",
+      "chegada": "09:55",
+      "chega_em": "2027-02-10",
+      "cia": "Gol Transportes Aéreos",
+      "voo": "G3 1549",
+      "paradas": 1,
+      "duracao": 235
     },
-    "link": "https://www.google.com/travel/flights?q=Flights%20to%20GIG%20from%20POA%20on%202027-02-05%20through%202027-02-11"
+    "link": "https://www.google.com/travel/flights?q=Flights%20to%20GIG%20from%20POA%20on%202027-02-05%20through%202027-02-10"
   },
   "combinacoes": [
-    {
-      "destino": "GIG",
-      "volta": "2027-02-11",
-      "partida": "05:30",
-      "paradas": 0,
-      "preco": 1401.0
-    },
     {
       "destino": "GIG",
       "volta": "2027-02-10",
@@ -53,9 +46,16 @@
     {
       "destino": "SDU",
       "volta": "2027-02-10",
-      "partida": "08:00",
-      "paradas": 2,
+      "partida": "06:15",
+      "paradas": 1,
       "preco": 1960.0
+    },
+    {
+      "destino": "GIG",
+      "volta": "2027-02-11",
+      "partida": "04:40",
+      "paradas": 1,
+      "preco": 2448.0
     },
     {
       "destino": "SDU",
@@ -75,14 +75,14 @@
   "resumo": {
     "menor": 1088.0,
     "maior": 2388.0,
-    "media": 1455.42,
-    "leituras": 52,
+    "media": 1459.3,
+    "leituras": 53,
     "menor_em": "2026-09-28"
   },
   "veredicto": {
-    "codigo": "justo",
-    "titulo": "Preço justo",
-    "nota": "abaixo da média da rota. Quem precisa de garantia pode fechar."
+    "codigo": "esperar",
+    "titulo": "Esperar",
+    "nota": "acima da média. Já caiu mais barato que isso em 39 das leituras."
   },
   "historico": [
     {
@@ -292,6 +292,10 @@
     {
       "data": "2026-11-01",
       "preco": 1401.0
+    },
+    {
+      "data": "2026-11-02",
+      "preco": 1661.0
     }
   ]
 }
