@@ -1,34 +1,41 @@
 {
-  "atualizado_em": "2026-11-02T17:58:53-03:00",
+  "atualizado_em": "2026-11-03T15:46:28-03:00",
   "moeda": "BRL",
-  "embarque": "2027-02-05T19:40:00-03:00",
+  "embarque": "2027-02-05T17:35:00-03:00",
   "atual": {
-    "preco": 1661.0,
+    "preco": 1659.0,
     "moeda": "BRL",
-    "destino": "GIG",
+    "destino": "SDU",
     "ida": {
       "data": "2027-02-05",
-      "partida": "19:40",
-      "chegada": "00:15",
-      "chega_em": "2027-02-06",
-      "cia": "Gol Transportes Aéreos",
-      "voo": "G3 1239",
+      "partida": "17:35",
+      "chegada": "22:10",
+      "chega_em": "2027-02-05",
+      "cia": "Azul Brazilian Airlines",
+      "voo": "AD 2763",
       "paradas": 1,
       "duracao": 275
     },
     "volta": {
       "data": "2027-02-10",
-      "partida": "06:00",
-      "chegada": "09:55",
+      "partida": "08:00",
+      "chegada": "16:10",
       "chega_em": "2027-02-10",
       "cia": "Gol Transportes Aéreos",
-      "voo": "G3 1549",
-      "paradas": 1,
-      "duracao": 235
+      "voo": "G3 1803",
+      "paradas": 2,
+      "duracao": 490
     },
-    "link": "https://www.google.com/travel/flights?q=Flights%20to%20GIG%20from%20POA%20on%202027-02-05%20through%202027-02-10"
+    "link": "https://www.google.com/travel/flights?q=Flights%20to%20SDU%20from%20POA%20on%202027-02-05%20through%202027-02-10"
   },
   "combinacoes": [
+    {
+      "destino": "SDU",
+      "volta": "2027-02-10",
+      "partida": "08:00",
+      "paradas": 2,
+      "preco": 1659.0
+    },
     {
       "destino": "GIG",
       "volta": "2027-02-10",
@@ -46,37 +53,30 @@
     {
       "destino": "SDU",
       "volta": "2027-02-10",
-      "partida": "06:15",
+      "partida": "19:20",
       "paradas": 1,
-      "preco": 1960.0
+      "preco": 2072.0
     },
     {
       "destino": "GIG",
       "volta": "2027-02-11",
-      "partida": "04:40",
-      "paradas": 1,
-      "preco": 2448.0
-    },
-    {
-      "destino": "SDU",
-      "volta": "2027-02-10",
-      "partida": "19:05",
-      "paradas": 1,
-      "preco": 2609.0
+      "partida": "05:30",
+      "paradas": 0,
+      "preco": 2165.0
     },
     {
       "destino": "SDU",
       "volta": "2027-02-11",
       "partida": "06:20",
       "paradas": 0,
-      "preco": 2736.0
+      "preco": 2344.0
     }
   ],
   "resumo": {
     "menor": 1088.0,
     "maior": 2388.0,
-    "media": 1459.3,
-    "leituras": 53,
+    "media": 1463.0,
+    "leituras": 54,
     "menor_em": "2026-09-28"
   },
   "veredicto": {
@@ -296,6 +296,10 @@
     {
       "data": "2026-11-02",
       "preco": 1661.0
+    },
+    {
+      "data": "2026-11-03",
+      "preco": 1659.0
     }
   ]
 }
