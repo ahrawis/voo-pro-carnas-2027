@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-11-04T16:00:28-03:00",
+  "atualizado_em": "2026-11-05T16:11:56-03:00",
   "moeda": "BRL",
   "embarque": "2027-02-05T19:40:00-03:00",
   "atual": {
@@ -19,12 +19,12 @@
     "volta": {
       "data": "2027-02-10",
       "partida": "06:00",
-      "chegada": "09:55",
+      "chegada": "13:35",
       "chega_em": "2027-02-10",
       "cia": "Gol Transportes Aéreos",
-      "voo": "G3 1549",
-      "paradas": 1,
-      "duracao": 235
+      "voo": "G3 2022",
+      "paradas": 2,
+      "duracao": 455
     },
     "link": "https://www.google.com/travel/flights?q=Flights%20to%20GIG%20from%20POA%20on%202027-02-05%20through%202027-02-10"
   },
@@ -33,7 +33,7 @@
       "destino": "GIG",
       "volta": "2027-02-10",
       "partida": "06:00",
-      "paradas": 1,
+      "paradas": 2,
       "preco": 1661.0
     },
     {
@@ -55,14 +55,28 @@
       "volta": "2027-02-10",
       "partida": "06:10",
       "paradas": 1,
-      "preco": 2584.0
+      "preco": 2569.0
+    },
+    {
+      "destino": "SDU",
+      "volta": "2027-02-10",
+      "partida": "19:20",
+      "paradas": 1,
+      "preco": 2699.0
+    },
+    {
+      "destino": "SDU",
+      "volta": "2027-02-11",
+      "partida": "06:20",
+      "paradas": 0,
+      "preco": 3922.0
     }
   ],
   "resumo": {
     "menor": 1088.0,
     "maior": 2388.0,
-    "media": 1466.6,
-    "leituras": 55,
+    "media": 1470.07,
+    "leituras": 56,
     "menor_em": "2026-09-28"
   },
   "veredicto": {
@@ -289,6 +303,10 @@
     },
     {
       "data": "2026-11-04",
+      "preco": 1661.0
+    },
+    {
+      "data": "2026-11-05",
       "preco": 1661.0
     }
   ]
