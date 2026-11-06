@@ -1,5 +1,5 @@
 {
-  "atualizado_em": "2026-11-05T16:11:56-03:00",
+  "atualizado_em": "2026-11-06T15:39:17-03:00",
   "moeda": "BRL",
   "embarque": "2027-02-05T19:40:00-03:00",
   "atual": {
@@ -44,39 +44,39 @@
       "preco": 1661.0
     },
     {
-      "destino": "GIG",
-      "volta": "2027-02-11",
-      "partida": "05:30",
-      "paradas": 0,
-      "preco": 2165.0
-    },
-    {
       "destino": "SDU",
       "volta": "2027-02-10",
-      "partida": "06:10",
+      "partida": "08:00",
+      "paradas": 2,
+      "preco": 1960.0
+    },
+    {
+      "destino": "GIG",
+      "volta": "2027-02-11",
+      "partida": "04:40",
       "paradas": 1,
-      "preco": 2569.0
+      "preco": 2448.0
     },
     {
       "destino": "SDU",
       "volta": "2027-02-10",
       "partida": "19:20",
       "paradas": 1,
-      "preco": 2699.0
+      "preco": 2609.0
     },
     {
       "destino": "SDU",
       "volta": "2027-02-11",
       "partida": "06:20",
       "paradas": 0,
-      "preco": 3922.0
+      "preco": 3808.0
     }
   ],
   "resumo": {
     "menor": 1088.0,
     "maior": 2388.0,
-    "media": 1470.07,
-    "leituras": 56,
+    "media": 1473.42,
+    "leituras": 57,
     "menor_em": "2026-09-28"
   },
   "veredicto": {
@@ -307,6 +307,10 @@
     },
     {
       "data": "2026-11-05",
+      "preco": 1661.0
+    },
+    {
+      "data": "2026-11-06",
       "preco": 1661.0
     }
   ]
