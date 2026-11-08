@@ -1,9 +1,9 @@
 {
-  "atualizado_em": "2026-11-07T14:06:28-03:00",
+  "atualizado_em": "2026-11-08T14:21:12-03:00",
   "moeda": "BRL",
   "embarque": "2027-02-05T19:40:00-03:00",
   "atual": {
-    "preco": 1661.0,
+    "preco": 1557.0,
     "moeda": "BRL",
     "destino": "GIG",
     "ida": {
@@ -18,13 +18,13 @@
     },
     "volta": {
       "data": "2027-02-10",
-      "partida": "06:00",
-      "chegada": "13:35",
+      "partida": "12:25",
+      "chegada": "14:35",
       "chega_em": "2027-02-10",
       "cia": "Gol Transportes Aéreos",
-      "voo": "G3 2022",
-      "paradas": 2,
-      "duracao": 455
+      "voo": "G3 1864",
+      "paradas": 0,
+      "duracao": 130
     },
     "link": "https://www.google.com/travel/flights?q=Flights%20to%20GIG%20from%20POA%20on%202027-02-05%20through%202027-02-10"
   },
@@ -32,23 +32,30 @@
     {
       "destino": "GIG",
       "volta": "2027-02-10",
-      "partida": "06:00",
-      "paradas": 2,
+      "partida": "12:25",
+      "paradas": 0,
+      "preco": 1557.0
+    },
+    {
+      "destino": "GIG",
+      "volta": "2027-02-10",
+      "partida": "21:25",
+      "paradas": 1,
       "preco": 1661.0
     },
     {
       "destino": "SDU",
       "volta": "2027-02-10",
-      "partida": "10:55",
+      "partida": "06:15",
       "paradas": 1,
       "preco": 1960.0
     },
     {
       "destino": "GIG",
       "volta": "2027-02-11",
-      "partida": "04:40",
-      "paradas": 1,
-      "preco": 2448.0
+      "partida": "00:10",
+      "paradas": 2,
+      "preco": 2214.0
     },
     {
       "destino": "SDU",
@@ -56,19 +63,26 @@
       "partida": "19:20",
       "paradas": 1,
       "preco": 2609.0
+    },
+    {
+      "destino": "SDU",
+      "volta": "2027-02-11",
+      "partida": "06:20",
+      "paradas": 0,
+      "preco": 3808.0
     }
   ],
   "resumo": {
     "menor": 1088.0,
     "maior": 2388.0,
-    "media": 1476.66,
-    "leituras": 58,
+    "media": 1478.02,
+    "leituras": 59,
     "menor_em": "2026-09-28"
   },
   "veredicto": {
     "codigo": "esperar",
     "titulo": "Esperar",
-    "nota": "acima da média. Já caiu mais barato que isso em 40 das leituras."
+    "nota": "acima da média. Já caiu mais barato que isso em 36 das leituras."
   },
   "historico": [
     {
@@ -302,6 +316,10 @@
     {
       "data": "2026-11-07",
       "preco": 1661.0
+    },
+    {
+      "data": "2026-11-08",
+      "preco": 1557.0
     }
   ]
 }
