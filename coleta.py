@@ -15,6 +15,7 @@ import json
 import os
 import smtplib
 import sys
+import time
 from datetime import datetime, timedelta, timezone
 from email.mime.text import MIMEText
 from pathlib import Path
@@ -34,6 +35,13 @@ MOEDA = "BRL"
 REGIAO = "?hl=pt-BR&gl=BR&curr=BRL"
 
 # limiares do veredicto, em relacao ao historico da propria rota
+# O Google devolve resposta vazia de vez em quando numa rajada de 12 buscas --
+# na primeira coleta 7 das 12 voltaram vazias e depois preencheram na repeticao.
+# Buraco na grade estraga o "mais barato", entao vale insistir.
+TENTATIVAS = 3
+ESPERA = 4              # segundos antes de repetir uma combinacao vazia
+PAUSA = 1               # respiro entre combinacoes
+
 MIN_LEITURAS = 10       # abaixo disso nao ha base para opinar
 FOLGA_COMPRAR = 1.08    # ate 8% acima do minimo historico = compra
 MIRA_JUSTO = 0.90       # ate 90% do caminho entre minimo e media = justo
@@ -114,7 +122,14 @@ def buscar_combinacao(destino: str, ida: str, volta: str) -> Optional[Dict]:
         show_all_results=False,
     )
 
-    resultados = SearchFlights().search(filtros, top_n=5) or []
+    resultados = []
+    for tentativa in range(TENTATIVAS):
+        resultados = SearchFlights().search(filtros, top_n=5) or []
+        if resultados:
+            break
+        if tentativa < TENTATIVAS - 1:
+            time.sleep(ESPERA * (tentativa + 1))
+
     melhor = None
     for item in resultados:
         partes = item if isinstance(item, tuple) else (item,)
@@ -150,7 +165,9 @@ def coletar() -> List[Dict]:
                     achados.append(achado)
                     print("{} {} a {}: R$ {:.2f}".format(destino, ida, volta, achado["preco"]))
                 else:
-                    print("{} {} a {}: sem resultado".format(destino, ida, volta))
+                    print("{} {} a {}: sem resultado em {} tentativas".format(
+                        destino, ida, volta, TENTATIVAS))
+                time.sleep(PAUSA)
     return achados
 
 
