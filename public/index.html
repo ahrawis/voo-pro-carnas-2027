@@ -304,7 +304,8 @@ function grade(d){
       const c = preco.get(ida + '|' + volta);
       if (!c) return '<td class="vazio">—</td>';
       const venceu = melhor && c.ida === melhor.ida && c.volta === melhor.volta;
-      return `<td class="${venceu ? 'melhor' : ''}">R$ ${real(c.preco)}<small>${paradas(c.paradas)}</small></td>`;
+      const detalhe = c.dias ? `${paradas(c.paradas)} · ${c.dias} dias` : paradas(c.paradas);
+      return `<td class="${venceu ? 'melhor' : ''}">R$ ${real(c.preco)}<small>${detalhe}</small></td>`;
     }).join('');
     return `<tr><th class="linha">${dataCurta(ida)}</th>${celulas}</tr>`;
   }).join('');

@@ -197,6 +197,23 @@ def veredicto(preco: float, historico: List[Dict]) -> Dict:
                 sum(1 for p in precos if p < preco))}
 
 
+def _dias(achado: Dict) -> int:
+    """Quantos dias a viagem dura, da ida ate a volta."""
+    ida = datetime.strptime(achado["ida"]["data"], "%Y-%m-%d")
+    volta = datetime.strptime(achado["volta"]["data"], "%Y-%m-%d")
+    return (volta - ida).days
+
+
+def _ranking(achado: Dict):
+    """Mais barato primeiro; empatou, ganha a viagem mais longa.
+
+    Nao e detalhe: na primeira coleta, 29/12 a 01/01 e 29/12 a 04/01 custavam
+    os mesmos R$ 1.379, e o site destacava a volta do dia 1o -- tres dias a
+    menos de viagem pelo mesmo dinheiro, so porque veio antes na ordem.
+    """
+    return (achado["preco"], -_dias(achado))
+
+
 def combinacoes(achados: List[Dict]) -> List[Dict]:
     """Uma linha por par ida x volta, da mais barata pra mais cara."""
     return sorted(
@@ -206,8 +223,9 @@ def combinacoes(achados: List[Dict]) -> List[Dict]:
             "volta": a["volta"]["data"],
             "paradas": max(a["ida"]["paradas"], a["volta"]["paradas"]),
             "preco": a["preco"],
+            "dias": _dias(a),
         } for a in achados],
-        key=lambda c: c["preco"],
+        key=lambda c: (c["preco"], -c["dias"]),
     )
 
 
@@ -216,7 +234,7 @@ def montar(achados: List[Dict], anterior: Dict, agora: datetime) -> Dict:
     hoje = agora.strftime("%Y-%m-%d")
     historico = [h for h in anterior.get("historico", []) if h["data"] != hoje]
 
-    melhor = min(achados, key=lambda a: a["preco"])
+    melhor = min(achados, key=_ranking)
     historico.append({"data": hoje, "preco": melhor["preco"]})
     historico.sort(key=lambda h: h["data"])
 
@@ -327,6 +345,14 @@ def testes() -> None:
     opcoes = combinacoes(achados)
     assert [o["preco"] for o in opcoes] == [1420.0, 1655.0, 1900.0], "ordena da mais barata"
     assert opcoes[0]["ida"] == "2026-12-30" and opcoes[0]["volta"] == "2027-01-02"
+
+    # preco empatado: ganha quem fica mais tempo
+    empate = [_achado(1379.0, "2026-12-29", "2027-01-01"),
+              _achado(1379.0, "2026-12-29", "2027-01-04"),
+              _achado(1379.0, "2026-12-30", "2027-01-04")]
+    assert combinacoes(empate)[0]["volta"] == "2027-01-04", "empate escolhe a volta mais tarde"
+    assert combinacoes(empate)[0]["ida"] == "2026-12-29", "e a ida mais cedo"
+    assert min(empate, key=_ranking)["volta"]["data"] == "2027-01-04", "o destaque usa o mesmo criterio"
 
     agora = datetime(2026, 11, 13, 9, 0, tzinfo=FUSO_BR)
     saida = montar(achados, {"historico": [{"data": "2026-11-12", "preco": 1600.0}]}, agora)
