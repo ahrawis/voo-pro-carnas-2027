@@ -1,0 +1,100 @@
+{
+  "atualizado_em": "2026-11-13T01:19:19-03:00",
+  "moeda": "BRL",
+  "embarque": "2026-12-30T00:20:00-03:00",
+  "reveillon": "2026-12-31T23:59:00-03:00",
+  "atual": {
+    "preco": 1379.0,
+    "moeda": "BRL",
+    "destino": "MGF",
+    "ida": {
+      "data": "2026-12-30",
+      "partida": "00:20",
+      "chegada": "14:25",
+      "chega_em": "2026-12-30",
+      "cia": "Gol Transportes Aéreos",
+      "voo": "G3 9100",
+      "paradas": 2,
+      "duracao": 845
+    },
+    "volta": {
+      "data": "2027-01-01",
+      "partida": "09:10",
+      "chegada": "13:35",
+      "chega_em": "2027-01-01",
+      "cia": "Gol Transportes Aéreos",
+      "voo": "G3 1137",
+      "paradas": 1,
+      "duracao": 265
+    },
+    "link": "https://www.google.com/travel/flights?q=Flights%20to%20MGF%20from%20POA%20on%202026-12-30%20through%202027-01-01"
+  },
+  "combinacoes": [
+    {
+      "destino": "MGF",
+      "ida": "2026-12-30",
+      "volta": "2027-01-01",
+      "paradas": 2,
+      "preco": 1379.0
+    },
+    {
+      "destino": "MGF",
+      "ida": "2026-12-30",
+      "volta": "2027-01-04",
+      "paradas": 2,
+      "preco": 1379.0
+    },
+    {
+      "destino": "MGF",
+      "ida": "2026-12-28",
+      "volta": "2027-01-02",
+      "paradas": 1,
+      "preco": 1528.0
+    },
+    {
+      "destino": "MGF",
+      "ida": "2026-12-28",
+      "volta": "2027-01-04",
+      "paradas": 1,
+      "preco": 1604.0
+    },
+    {
+      "destino": "MGF",
+      "ida": "2026-12-28",
+      "volta": "2027-01-03",
+      "paradas": 1,
+      "preco": 1627.0
+    }
+  ],
+  "janela": {
+    "idas": [
+      "2026-12-28",
+      "2026-12-29",
+      "2026-12-30"
+    ],
+    "voltas": [
+      "2027-01-01",
+      "2027-01-02",
+      "2027-01-03",
+      "2027-01-04"
+    ]
+  },
+  "resumo": {
+    "menor": 1379.0,
+    "maior": 1379.0,
+    "media": 1379.0,
+    "leituras": 1,
+    "menor_em": "2026-11-13"
+  },
+  "veredicto": {
+    "codigo": "calibrando",
+    "titulo": "Calibrando",
+    "nota": "faltam 9 leituras pra base de comparação ficar honesta"
+  },
+  "historico": [
+    {
+      "data": "2026-11-13",
+      "preco": 1379.0
+    }
+  ]
+}
