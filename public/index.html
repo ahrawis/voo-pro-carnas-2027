@@ -3,35 +3,36 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Voo pro Carnas 2027</title>
-<meta name="description" content="O preço da passagem POA → Rio no Carnaval 2027, conferido todo dia.">
-<meta property="og:title" content="Voo pro Carnas 2027">
-<meta property="og:description" content="Quanto tá a passagem pro Rio no Carnaval. Atualiza sozinho todo dia.">
-<meta name="theme-color" content="#1C0633">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>🎭</text></svg>">
+<title>Voo pro Réveillon em Maringá</title>
+<meta name="description" content="O preço da passagem Porto Alegre → Maringá no réveillon, conferido todo dia.">
+<meta property="og:title" content="Voo pro Réveillon em Maringá">
+<meta property="og:description" content="Quanto tá a passagem pro réveillon. Atualiza sozinho todo dia.">
+<meta name="theme-color" content="#070D26">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>🎆</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --roxo:#2A0A4A;
-  --roxo-fundo:#1C0633;
-  --magenta:#FF2E6E;
-  --lima:#C6FF4F;
-  --ouro:#FFC400;
-  --creme:#FFF1DC;
-  --turquesa:#25D0C0;
-  --tinta:#180429;
-  --lilas:#C9A9E8;
+  --noite:#070D26;
+  --noite-alta:#101A42;
+  --painel:#16214F;
+  --ouro:#F5C542;
+  --champanhe:#F7E7B4;
+  --fogo:#FF5C8A;
+  --menta:#5BE8C4;
+  --creme:#FFF6E3;
+  --tinta:#070D26;
+  --lilas:#A8B4E8;
 }
 *{box-sizing:border-box}
 html,body{margin:0}
 body{
-  background:var(--roxo-fundo);
+  background:var(--noite);
   background-image:
-    radial-gradient(circle at 12% 8%, rgba(255,46,110,.30), transparent 42%),
-    radial-gradient(circle at 88% 4%, rgba(37,208,192,.22), transparent 38%),
-    radial-gradient(circle at 50% 100%, rgba(255,196,0,.14), transparent 55%);
+    radial-gradient(circle at 14% 6%, rgba(245,197,66,.26), transparent 42%),
+    radial-gradient(circle at 86% 4%, rgba(255,92,138,.22), transparent 40%),
+    radial-gradient(circle at 50% 100%, rgba(91,232,196,.14), transparent 55%);
   background-attachment:fixed;
   color:var(--creme);
   font-family:"Space Grotesk",system-ui,sans-serif;
@@ -40,24 +41,23 @@ body{
   padding:clamp(14px,3vw,44px);
 }
 .cartaz{max-width:960px;margin:0 auto}
-a{color:var(--ouro)}
 
 .faixa{
   display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;
-  background:var(--magenta);color:var(--tinta);
+  background:var(--ouro);color:var(--tinta);
   padding:8px 16px;border-radius:999px;
   font-weight:700;font-size:13px;
 }
-.faixa .meio{color:#fff}
+.faixa .meio{color:#6B4A00}
 
 .titulo{
   font-family:"Bungee",system-ui,sans-serif;
-  font-size:clamp(44px,12.5vw,126px);
-  line-height:.84;letter-spacing:-.012em;
+  font-size:clamp(40px,10.5vw,106px);
+  line-height:.86;letter-spacing:-.012em;
   margin:22px 0 0;color:var(--creme);
-  text-shadow:5px 5px 0 var(--magenta), 10px 10px 0 var(--roxo);
+  text-shadow:5px 5px 0 var(--fogo), 10px 10px 0 var(--painel);
 }
-.titulo .ano{color:var(--ouro);text-shadow:5px 5px 0 var(--turquesa),10px 10px 0 var(--roxo)}
+.titulo .destino{color:var(--ouro);text-shadow:5px 5px 0 var(--menta),10px 10px 0 var(--painel)}
 
 .contagem{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:26px 0 0}
 .cartoes{display:flex;gap:7px}
@@ -75,14 +75,14 @@ a{color:var(--ouro)}
 .contagem p{margin:0;font-weight:700;font-size:clamp(16px,2.3vw,21px);max-width:24ch}
 
 .preco-bloco{
-  margin-top:clamp(20px,3vw,30px);background:var(--roxo);
+  margin-top:clamp(20px,3vw,30px);background:var(--painel);
   border:3px solid var(--creme);border-radius:22px;
   padding:clamp(16px,3.4vw,34px);
 }
 .topo{display:flex;gap:clamp(12px,3vw,34px);align-items:center;justify-content:space-between}
 .numeros-preco{flex:1;min-width:0}
 .julgamento{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:14px}
-.preco-bloco .hoje{margin:0 0 2px;font-weight:700;color:var(--lima);font-size:clamp(13px,3.6vw,15px)}
+.preco-bloco .hoje{margin:0 0 2px;font-weight:700;color:var(--menta);font-size:clamp(13px,3.6vw,15px)}
 .valor{
   font-family:"Bungee",system-ui,sans-serif;
   font-size:clamp(52px,13vw,134px);line-height:.86;
@@ -90,18 +90,18 @@ a{color:var(--ouro)}
   font-feature-settings:"tnum";
 }
 .valor sup{font-size:.36em;vertical-align:.9em;color:var(--creme);margin-right:.1em}
-.comparacao{margin:8px 0 0;font-size:clamp(13.5px,3.7vw,15px);color:#E6D2F5}
-.comparacao b{color:var(--magenta)}
+.comparacao{margin:8px 0 0;font-size:clamp(13.5px,3.7vw,15px);color:#DCE3FF}
+.comparacao b{color:var(--fogo)}
 .selo{
   display:inline-block;
   font-family:"Bungee",system-ui,sans-serif;
   font-size:clamp(17px,5vw,28px);
   padding:10px 18px;border-radius:12px;transform:rotate(-2.2deg);
 }
-.selo[data-v="esperar"]{background:var(--magenta);color:#fff}
+.selo[data-v="esperar"]{background:var(--fogo);color:#fff}
 .selo[data-v="justo"]{background:var(--ouro);color:var(--tinta)}
-.selo[data-v="comprar"]{background:var(--lima);color:var(--tinta)}
-.selo[data-v="calibrando"]{background:#5B3A80;color:var(--creme)}
+.selo[data-v="comprar"]{background:var(--menta);color:var(--tinta)}
+.selo[data-v="calibrando"]{background:#2C3A72;color:var(--creme)}
 .selo-nota{display:block;font-size:14px;color:var(--lilas);max-width:38ch;flex:1;min-width:16ch}
 
 .medidor{display:flex;flex-direction:column;align-items:center;gap:8px;margin:0;flex-shrink:0}
@@ -114,47 +114,61 @@ a{color:var(--ouro)}
 }
 .trechos{display:flex;gap:26px;flex-wrap:wrap;font-size:15px}
 .trecho b{display:block;font-family:"Bungee",system-ui,sans-serif;font-size:17px;letter-spacing:-.01em}
-.trecho span{color:#5B4A6B}
-.escala{font-style:normal;font-weight:700;color:#C4123F}   /* vermelho sobre o creme do cartão */
+.trecho span{color:#4A5280}
+.escala{font-style:normal;font-weight:700;color:#C4123F}   /* escala muda a viagem, então grita */
 .voo a{
   background:var(--tinta);color:var(--creme);text-decoration:none;
   font-weight:700;font-size:15px;padding:12px 20px;border-radius:999px;white-space:nowrap;
 }
-.voo a:focus-visible{outline:3px solid var(--magenta);outline-offset:3px}
+.voo a:focus-visible{outline:3px solid var(--ouro);outline-offset:3px}
 
-.opcoes-titulo{margin:16px 2px 8px;font-size:13px;color:var(--lilas);max-width:62ch}
-.opcoes{display:flex;gap:10px;flex-wrap:wrap}
-.opcao{
-  background:rgba(255,241,220,.08);border:1px solid rgba(255,241,220,.2);
-  border-radius:10px;padding:8px 12px;font-size:13px;color:var(--lilas);
+.grade-titulo{margin:18px 2px 8px;font-size:13px;color:var(--lilas);max-width:62ch}
+.grade-rolagem{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table.grade{
+  border-collapse:separate;border-spacing:6px;
+  font-size:14px;min-width:100%;
 }
-.opcao b{display:block;color:var(--creme);font-size:15px;font-variant-numeric:tabular-nums}
-.opcao.vencedora{border-color:var(--lima);background:rgba(198,255,79,.12)}
-.opcao.vencedora b{color:var(--lima)}
+table.grade th{
+  font-weight:700;color:var(--lilas);font-size:12px;
+  padding:4px 8px;text-align:center;white-space:nowrap;
+}
+table.grade th.canto{text-align:left}
+table.grade th.linha{text-align:right;color:var(--creme);font-size:13px}
+table.grade td{
+  background:rgba(255,246,227,.07);border:1px solid rgba(255,246,227,.16);
+  border-radius:10px;padding:9px 10px;text-align:center;white-space:nowrap;
+  font-variant-numeric:tabular-nums;color:var(--creme);
+}
+table.grade td.vazio{color:#5A669B;background:transparent;border-style:dashed}
+table.grade td.melhor{
+  border-color:var(--menta);background:rgba(91,232,196,.14);
+  color:var(--menta);font-weight:700;
+}
+table.grade td small{display:block;font-size:10.5px;color:var(--lilas);font-weight:400}
+table.grade td.melhor small{color:var(--menta)}
 
 .historico{
-  margin-top:22px;background:rgba(255,241,220,.07);
-  border:1px solid rgba(255,241,220,.2);border-radius:16px;padding:16px 18px;
+  margin-top:22px;background:rgba(255,246,227,.07);
+  border:1px solid rgba(255,246,227,.2);border-radius:16px;padding:16px 18px;
 }
-.historico h2{margin:0 0 12px;font-size:14px;font-weight:700;color:var(--lima)}
+.historico h2{margin:0 0 12px;font-size:14px;font-weight:700;color:var(--menta)}
 .historico .linha{display:grid;grid-template-columns:minmax(0,2.2fr) minmax(160px,1fr);gap:18px;align-items:center}
 .historico svg{display:block;width:100%;height:110px}
 .numeros{display:flex;flex-direction:column;gap:6px;font-size:13px}
-.numeros div{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dotted rgba(255,241,220,.22);padding-bottom:5px}
+.numeros div{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dotted rgba(255,246,227,.22);padding-bottom:5px}
 .numeros span:last-child{font-weight:700;font-variant-numeric:tabular-nums}
-.numeros .min span:last-child{color:var(--lima)}
-.numeros .max span:last-child{color:var(--magenta)}
-.vazio{color:var(--lilas);font-size:14px;margin:0}
-footer{margin:18px 2px 0;font-size:12px;color:#9B7FB8}
+.numeros .min span:last-child{color:var(--menta)}
+.numeros .max span:last-child{color:var(--fogo)}
+footer{margin:18px 2px 0;font-size:12px;color:#7E8AC4}
 footer b{color:var(--lilas);font-weight:500}
 
-/* O grupo abre isso no celular, então o telefone é o caso principal. */
+/* O celular é o caso principal. */
 @media (max-width:620px){
   body{padding:12px}
   .faixa{justify-content:center;gap:4px 12px;text-align:center;font-size:11.5px;padding:7px 14px}
-  .titulo{line-height:.94;margin-top:16px}  /* a sombra dupla encosta na linha de cima se for mais apertado */
+  .titulo{font-size:clamp(34px,9.4vw,106px);line-height:1.02;margin-top:16px}  /* os acentos de RÉVEILLON e MARINGÁ encostam na linha de cima se for mais apertado */
   .contagem{margin-top:18px;gap:12px}
-  .medidor figcaption{display:none}         /* ao lado do preço não sobra largura pra legenda */
+  .medidor figcaption{display:none}
   .julgamento{gap:10px}
 
   .voo{flex-direction:column;align-items:stretch;gap:12px;padding:14px 16px}
@@ -162,7 +176,9 @@ footer b{color:var(--lilas);font-weight:500}
   .trecho + .trecho{border-top:1px dotted #C9B79B;padding-top:10px}
   .voo a{text-align:center;padding:14px 20px}
 
-  .opcoes{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  table.grade{border-spacing:4px;font-size:13px}
+  table.grade td{padding:7px 8px}
+
   .historico{padding:14px}
   .historico .linha{grid-template-columns:1fr;gap:12px}
   .numeros{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
@@ -170,22 +186,19 @@ footer b{color:var(--lilas);font-weight:500}
   .numeros span:first-child{color:var(--lilas);font-size:11.5px}
   .numeros span:last-child{font-size:16px}
 }
-@media (max-width:360px){
-  .medidor svg{width:56px}
-  .opcoes{grid-template-columns:1fr}
-}
+@media (max-width:360px){ .medidor svg{width:56px} }
 @media (prefers-reduced-motion:reduce){ .cartao.gira{animation:none} }
 </style>
 </head>
 <body>
 <main class="cartaz">
   <div class="faixa">
-    <span>Bloco do Embarque</span>
-    <span class="meio" id="rota">POA ✈ Rio</span>
-    <span>05 a 11 fev 2027</span>
+    <span>Operação Réveillon</span>
+    <span class="meio" id="rota">POA ✈ Maringá</span>
+    <span>28/12 a 04/01</span>
   </div>
 
-  <h1 class="titulo">Voo pro<br>Carnas <span class="ano">2027</span></h1>
+  <h1 class="titulo">Voo pro Réveillon<br><span class="destino">em Maringá</span></h1>
 
   <div class="contagem">
     <div class="cartoes" id="cartoes" role="img" aria-label="contador de dias para o embarque"></div>
@@ -201,20 +214,20 @@ footer b{color:var(--lilas);font-weight:500}
       </div>
 
       <figure class="medidor">
-      <svg viewBox="0 0 80 130" role="img" id="corote" aria-label="medidor de preço">
-        <defs><clipPath id="garrafa">
-          <path d="M28 6h24v14c0 4 10 10 10 20v74a8 8 0 0 1-8 8H26a8 8 0 0 1-8-8V40c0-10 10-16 10-20V6z"/>
-        </clipPath></defs>
-        <g clip-path="url(#garrafa)">
-          <rect x="0" y="0" width="80" height="130" fill="#3B1466"/>
-          <rect id="corote-nivel" x="0" y="130" width="80" height="0" fill="#C6FF4F"/>
-          <rect x="0" y="52" width="80" height="30" fill="#FFF1DC"/>
-          <text id="corote-texto" x="40" y="72" text-anchor="middle" font-family="Bungee" font-size="14" fill="#180429">—</text>
-        </g>
-        <path d="M28 6h24v14c0 4 10 10 10 20v74a8 8 0 0 1-8 8H26a8 8 0 0 1-8-8V40c0-10 10-16 10-20V6z"
-              fill="none" stroke="#FFF1DC" stroke-width="3"/>
-        <rect x="26" y="2" width="28" height="8" rx="2" fill="#FF2E6E"/>
-      </svg>
+        <svg viewBox="0 0 80 130" role="img" id="garrafa" aria-label="medidor de preço">
+          <defs><clipPath id="espumante">
+            <path d="M33 4h14v16c0 6 13 12 13 26v56a8 8 0 0 1-8 8H28a8 8 0 0 1-8-8V46c0-14 13-20 13-26V4z"/>
+          </clipPath></defs>
+          <g clip-path="url(#espumante)">
+            <rect x="0" y="0" width="80" height="130" fill="#1B2A5E"/>
+            <rect id="nivel" x="0" y="130" width="80" height="0" fill="#F5C542"/>
+            <rect x="0" y="56" width="80" height="28" fill="#FFF6E3"/>
+            <text id="nivel-texto" x="40" y="75" text-anchor="middle" font-family="Bungee" font-size="14" fill="#070D26">—</text>
+          </g>
+          <path d="M33 4h14v16c0 6 13 12 13 26v56a8 8 0 0 1-8 8H28a8 8 0 0 1-8-8V46c0-14 13-20 13-26V4z"
+                fill="none" stroke="#FFF6E3" stroke-width="3"/>
+          <rect x="31" y="1" width="18" height="9" rx="2" fill="#FF5C8A"/>
+        </svg>
         <figcaption>quão perto do melhor preço já visto</figcaption>
       </figure>
     </div>
@@ -230,8 +243,8 @@ footer b{color:var(--lilas);font-weight:500}
     <a id="link-google" href="https://www.google.com/travel/flights" rel="noopener">Ver no Google Flights</a>
   </div>
 
-  <p class="opcoes-titulo">as outras voltas que cabem no feriado — a diferença é quanto custa cada hora a mais no Rio</p>
-  <div class="opcoes" id="opcoes"></div>
+  <p class="grade-titulo">todas as combinações de ida e volta da janela — a linha é quando você sai, a coluna é quando você volta</p>
+  <div class="grade-rolagem"><table class="grade" id="grade"></table></div>
 
   <section class="historico">
     <h2>como o preço andou até aqui</h2>
@@ -246,7 +259,6 @@ footer b{color:var(--lilas);font-weight:500}
 
 <script>
 const DIAS = ['dom','seg','ter','qua','qui','sex','sáb'];
-const AEROPORTOS = {GIG:'Galeão', SDU:'Santos Dumont'};
 const reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const real = n => n.toLocaleString('pt-BR', {maximumFractionDigits:0});
 
@@ -255,6 +267,7 @@ function dataCurta(iso){
   const dt = new Date(a, m-1, d);
   return `${DIAS[dt.getDay()]} ${String(d).padStart(2,'0')}/${String(m).padStart(2,'0')}`;
 }
+const diaMes = iso => iso.slice(8,10) + '/' + iso.slice(5,7);
 const paradas = n => n === 0 ? 'direto' : n === 1 ? '1 parada' : `${n} paradas`;
 
 function contador(embarqueISO){
@@ -262,7 +275,7 @@ function contador(embarqueISO){
   const wrap = document.getElementById('cartoes');
   wrap.innerHTML = '';
   wrap.setAttribute('aria-label', `${dias} dias para o embarque`);
-  String(dias).padStart(3,'0').split('').forEach((d,i)=>{
+  String(dias).padStart(2,'0').split('').forEach((d,i)=>{
     const el = document.createElement('div');
     el.className = 'cartao';
     el.textContent = reduz ? d : '0';
@@ -277,10 +290,32 @@ function contador(embarqueISO){
   });
 }
 
+function grade(d){
+  const janela = d.janela || {idas:[], voltas:[]};
+  const preco = new Map(d.combinacoes.map(c => [c.ida + '|' + c.volta, c]));
+  const melhor = d.combinacoes.length ? d.combinacoes[0] : null;
+
+  const cabecalho = ['<tr><th class="canto">sai / volta</th>']
+    .concat(janela.voltas.map(v => `<th>${dataCurta(v)}</th>`))
+    .concat('</tr>').join('');
+
+  const linhas = janela.idas.map(ida => {
+    const celulas = janela.voltas.map(volta => {
+      const c = preco.get(ida + '|' + volta);
+      if (!c) return '<td class="vazio">—</td>';
+      const venceu = melhor && c.ida === melhor.ida && c.volta === melhor.volta;
+      return `<td class="${venceu ? 'melhor' : ''}">R$ ${real(c.preco)}<small>${paradas(c.paradas)}</small></td>`;
+    }).join('');
+    return `<tr><th class="linha">${dataCurta(ida)}</th>${celulas}</tr>`;
+  }).join('');
+
+  document.getElementById('grade').innerHTML = cabecalho + linhas;
+}
+
 function grafico(historico){
   const svg = document.getElementById('grafico');
   if (historico.length < 2){
-    svg.innerHTML = `<text x="300" y="60" text-anchor="middle" fill="#C9A9E8"
+    svg.innerHTML = `<text x="300" y="60" text-anchor="middle" fill="#A8B4E8"
       font-family="Space Grotesk" font-size="15">a linha começa a aparecer depois de alguns dias</text>`;
     return;
   }
@@ -290,34 +325,28 @@ function grafico(historico){
   const d = pts.map((q,i)=>(i?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1)).join(' ');
   const iLo = p.indexOf(lo);
   svg.innerHTML = `
-    <path d="${d} L600 110 L0 110 Z" fill="#C6FF4F" opacity=".12"/>
-    <path d="${d}" fill="none" stroke="#C6FF4F" stroke-width="2"/>
-    <circle cx="${pts[iLo][0].toFixed(1)}" cy="${pts[iLo][1].toFixed(1)}" r="4" fill="#C6FF4F"/>
-    <circle cx="600" cy="${pts.at(-1)[1].toFixed(1)}" r="4" fill="#FFC400"/>`;
+    <path d="${d} L600 110 L0 110 Z" fill="#5BE8C4" opacity=".12"/>
+    <path d="${d}" fill="none" stroke="#5BE8C4" stroke-width="2"/>
+    <circle cx="${pts[iLo][0].toFixed(1)}" cy="${pts[iLo][1].toFixed(1)}" r="4" fill="#5BE8C4"/>
+    <circle cx="600" cy="${pts.at(-1)[1].toFixed(1)}" r="4" fill="#F5C542"/>`;
 }
 
-function corote(atual, menor, maior){
-  const nivel = document.getElementById('corote-nivel');
-  const texto = document.getElementById('corote-texto');
+function medidor(atual, menor, maior){
+  const nivel = document.getElementById('nivel');
+  const texto = document.getElementById('nivel-texto');
   if (maior === menor){ texto.textContent = '—'; return; }
   const pct = Math.round((maior - atual)/(maior - menor)*100);
   const altura = 130 * pct/100;
   nivel.setAttribute('y', 130 - altura);
   nivel.setAttribute('height', altura);
   texto.textContent = pct + '%';
-  document.getElementById('corote').setAttribute('aria-label', `medidor: ${pct}% do caminho até o melhor preço`);
+  document.getElementById('garrafa').setAttribute('aria-label', `medidor: ${pct}% do caminho até o melhor preço`);
 }
 
 function desenhar(d){
   const a = d.atual, r = d.resumo;
 
-  // o robô vigia os dois aeroportos do Rio; mostrar só o vencedor do dia dava a
-  // entender que a outra rota nem era consultada
-  const vigiados = [...new Set((d.combinacoes || []).map(c => c.destino))];
-  document.getElementById('rota').textContent =
-    `POA ✈ Rio · ${(vigiados.length ? vigiados : [a.destino]).join(' e ')}`;
   contador(d.embarque);
-
   document.getElementById('valor').innerHTML = `<sup>R$</sup>${real(a.preco)}`;
 
   const dif = r.menor ? (a.preco - r.menor)/r.menor*100 : 0;
@@ -332,7 +361,7 @@ function desenhar(d){
   selo.dataset.v = d.veredicto.codigo;
   document.getElementById('selo-nota').textContent = d.veredicto.nota;
 
-  corote(a.preco, r.menor, r.maior);
+  medidor(a.preco, r.menor, r.maior);
 
   document.getElementById('trechos').innerHTML = [
     ['POA → ' + a.destino, a.ida],
@@ -340,16 +369,14 @@ function desenhar(d){
   ].map(([rot, t]) => {
     const chega = t.chega_em !== t.data ? `${t.chegada} ${dataCurta(t.chega_em)}` : t.chegada;
     const escala = t.paradas
-      ? `<em class="escala">${paradas(t.paradas)}</em>`   // escala muda a viagem, então grita
+      ? `<em class="escala">${paradas(t.paradas)}</em>`
       : paradas(t.paradas);
     return `<div class="trecho"><b>${rot}</b>
       <span>${dataCurta(t.data)} · ${t.partida} → ${chega} · ${escala} · ${t.cia}</span></div>`;
   }).join('');
   document.getElementById('link-google').href = a.link;
 
-  document.getElementById('opcoes').innerHTML = d.combinacoes.map((c,i)=>
-    `<div class="opcao${i===0?' vencedora':''}"><b>R$ ${real(c.preco)}</b>
-      ${c.destino} · volta ${dataCurta(c.volta)}${c.partida ? ' ' + c.partida : ''}</div>`).join('');
+  grade(d);
 
   document.getElementById('numeros').innerHTML = `
     <div class="min"><span>mais barato</span><span>R$ ${real(r.menor)}</span></div>
@@ -361,7 +388,7 @@ function desenhar(d){
   const quando = new Date(d.atualizado_em);
   document.getElementById('rodape').innerHTML =
     `conferido pela última vez em <b>${quando.toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})}</b>
-     · o robô olha sozinho todo dia de manhã · fonte: Google Flights`;
+     · o robô olha sozinho todo dia de manhã e manda e-mail quando bate o menor preço · fonte: Google Flights`;
 }
 
 fetch('dados.json?' + Date.now())

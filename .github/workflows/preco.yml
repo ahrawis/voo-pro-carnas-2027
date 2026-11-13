@@ -26,10 +26,18 @@ jobs:
 
       - name: conferir o preço
         run: python coleta.py
+        env:
+          # o e-mail só sai quando o preço bate um mínimo histórico.
+          # sem estes secrets a coleta roda igual, só não alerta.
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          ALERTA_PARA: ${{ secrets.ALERTA_PARA }}
 
       - name: publicar se mudou
         run: |
-          if git diff --quiet public/dados.json; then
+          # status --porcelain, não diff: diff ignora arquivo ainda não rastreado,
+          # e na primeira coleta de uma rota nova o dados.json é exatamente isso
+          if [ -z "$(git status --porcelain public/dados.json)" ]; then
             echo "preço igual ao de ontem, nada a publicar"
             exit 0
           fi

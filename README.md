@@ -1,27 +1,37 @@
-# Voo pro Carnas 2027
+# Voo pro Réveillon em Maringá
 
-Site do grupo que acompanha o preço da passagem **Porto Alegre → Rio** no feriado
-de Carnaval de 2027. Atualiza sozinho, uma vez por dia.
+Acompanha o preço da passagem **Porto Alegre → Maringá** no réveillon 2026/2027.
+Atualiza sozinho uma vez por dia e manda e-mail quando bate o menor preço.
 
 - `public/index.html` — o site inteiro, num arquivo só. Lê `dados.json` e desenha.
-- `public/dados.json` — preço de hoje, as quatro combinações e o histórico completo.
-- `coleta.py` — pesquisa os preços no Google Flights (via a lib `flights`) e grava o JSON.
+- `public/dados.json` — preço de hoje, as 12 combinações de data e o histórico.
+- `coleta.py` — busca no Google Flights (via a lib `flights`), grava o JSON e alerta.
 - `wrangler.jsonc` — diz ao Cloudflare que isto é site estático e que a pasta é `public/`.
 - `.github/workflows/preco.yml` — roda a coleta todo dia às 09:00 e faz commit do resultado.
+- `arquivo/` — o site e os 63 dias de preço do Carnaval 2027, aposentado em 13/11/2026.
 
-## A janela do grupo
+## A janela
 
-Ninguém pode faltar ao trabalho, então a busca só aceita voo que:
+Ida em 28, 29 ou 30/12; volta em 01, 02, 03 ou 04/01. São 12 combinações por dia,
+e o site mostra todas numa grade: a linha é quando você sai, a coluna é quando volta.
+A mais barata fica em destaque.
 
-- **sai de POA a partir das 17h de sexta 05/02** (depois do expediente);
-- **pousa em POA até as 08:30 de quinta 11/02**.
+## Alerta por e-mail
 
-Na prática sobram duas voltas: quarta 10/02 à noite, ou o voo que sai do Rio de
-madrugada e pousa 07:40 de quinta. Não existe voo que chegue antes disso — por
-isso o limite é 08:30 e não 07:00.
+Dispara só quando o preço do dia fica **abaixo de tudo que já foi registrado**.
+Nunca dispara na primeira leitura de uma rota, porque não há com que comparar.
 
-Destinos: Galeão (GIG) e Santos Dumont (SDU). São 2 destinos × 2 voltas = 4
-buscas por dia, e o site mostra a mais barata em destaque e as outras três ao lado.
+Precisa de três secrets no repositório (Settings → Secrets and variables → Actions):
+
+| secret | o que é |
+|---|---|
+| `SMTP_USER` | o endereço que envia, ex. `voce@gmail.com` |
+| `SMTP_PASSWORD` | **senha de app** do Gmail, nunca a senha da conta |
+| `ALERTA_PARA` | para onde vai o alerta (se vazio, manda pro próprio `SMTP_USER`) |
+
+Opcionais: `SMTP_HOST` (padrão `smtp.gmail.com`) e `SMTP_PORT` (padrão `587`).
+
+Sem os secrets a coleta roda igual, só não manda e-mail.
 
 ## Moeda
 
@@ -35,7 +45,7 @@ de um dia no gráfico é melhor que um R$ 290 que na verdade eram US$ 290.
 ```bash
 pip install flights==0.8.4
 python coleta.py           # confere os preços e atualiza dados.json
-python coleta.py --teste   # só os self-checks, sem rede
+python coleta.py --teste   # só os self-checks, sem rede e sem e-mail
 ```
 
 Pra ver o site local, precisa de um servidor (o `fetch` do `dados.json` não
@@ -45,24 +55,20 @@ funciona abrindo o arquivo direto):
 python -m http.server 8777 --directory public
 ```
 
-## Publicando no Cloudflare
-
-O dashboard atual importa repositório como **Worker** (não como Pages), e Worker
-só sobe site estático se existir um `wrangler.jsonc` — sem ele o deploy termina
-"sem rotas ativas", que é exatamente o que aconteceu na primeira tentativa.
-
-O `wrangler.jsonc` deste repo já resolve isso: declara `assets.directory` como
-`public/` e liga o endereço `workers.dev`. Cada push republica sozinho.
-
-Só `public/` vai pro ar. O `coleta.py`, o workflow e os rascunhos de design
-ficam no repositório mas fora do site.
-
-O GitHub Actions já vem configurado; a única coisa a conferir é
-**Settings → Actions → General → Workflow permissions → Read and write**, senão
-o robô não consegue fazer commit.
-
 ## Se o preço parar de atualizar
 
-O Google às vezes devolve HTTP 429 pra IP de datacenter. Se os runs do Actions
-começarem a falhar, o plano B é rodar `coleta.py` na sua máquina (que já roda o
-fli) e dar push do `dados.json` — o site não muda em nada.
+O Google devolve resposta vazia para IP que pesquisou demais — acontece na
+máquina local depois de uma bateria de testes e passa em algumas horas. O runner
+do GitHub usa outro IP e não costuma pegar o bloqueio. Se os runs do Actions
+começarem a falhar, o plano B é rodar `coleta.py` na sua máquina e dar push do
+`public/dados.json` — o site não muda em nada.
+
+## Backlog
+
+Ideias levantadas e ainda não feitas:
+
+- Contador alternativo mirando a virada (31/12 23:59) em vez do embarque.
+- Alerta também quando o preço cruzar um teto definido por você, não só em mínimo histórico.
+- Incluir Londrina (LDB) como destino alternativo — fica a ~100 km de Maringá.
+- Resumo semanal por e-mail com a tendência, além do alerta de queda.
+- Marcar no gráfico o dia em que cada e-mail foi disparado.

@@ -1,47 +1,31 @@
-"""Coleta diaria do preco POA -> Rio no feriado de Carnaval 2027.
+"""Coleta diaria do preco POA -> Maringa no reveillon 2026/2027.
 
-Roda uma vez por dia (GitHub Actions ou cron local), pesquisa todas as
-combinacoes de destino x data de volta que cabem na janela do grupo, e grava o
-resultado em dados.json -- que e o unico arquivo que o site le.
+Roda uma vez por dia (GitHub Actions), varre todas as combinacoes de ida x volta
+da janela do reveillon, grava o resultado em public/dados.json -- que e o unico
+arquivo que o site le -- e manda e-mail quando o preco bate um minimo historico.
 
-Janela do grupo (ninguem pode faltar ao trabalho):
-  - ida: sexta 05/02/2027, partindo de POA das 17h em diante
-  - volta: precisa pousar em POA ate as 8h30 de quinta 11/02
-
-Dentro dessa regra cabem voltas bem diferentes -- sair do Rio na quarta de manha
-e sair na madrugada de quinta custam precos diferentes. O coletor busca as tres
-janelas e o site mostra as tres, porque a diferenca entre elas e o preco de
-algumas horas a mais de carnaval, e essa escolha e do grupo.
+Janela: ida 28, 29 ou 30/12; volta 01, 02, 03 ou 04/01. Sao 12 combinacoes.
 
 Uso:
-    python coleta.py            # coleta e grava dados.json
-    python coleta.py --teste    # roda os self-checks, sem rede
+    python coleta.py            # coleta, grava e alerta se bateu minimo
+    python coleta.py --teste    # roda os self-checks, sem rede e sem e-mail
 """
 
 import json
+import os
+import smtplib
 import sys
 from datetime import datetime, timedelta, timezone
+from email.mime.text import MIMEText
 from pathlib import Path
 from typing import Dict, List, Optional
 
-# o site e servido a partir de public/, entao o JSON mora junto com o index.html
 DADOS = Path(__file__).parent / "public" / "dados.json"
 FUSO_BR = timezone(timedelta(hours=-3))
 
-IDA = "2027-02-05"
-IDA_A_PARTIR_DE = 17  # hora local em POA
-DESTINOS = ["GIG", "SDU"]
-# (data da volta, hora minima de partida, hora maxima de chegada em POA)
-VOLTAS = [
-    ("2027-02-10", None, None),  # quarta, dia todo -- costuma ser a mais barata
-    ("2027-02-10", 19, None),    # quarta so a noite -- paga pra ficar ate o fim
-    ("2027-02-11", None, 9),     # red-eye de quinta; o corte fino fica em cabe_na_janela
-]
-# Regra que manda de verdade: tem que pousar em POA a tempo de trabalhar quinta.
-# 08:30 nao e um numero redondo a toa -- o voo mais cedo do Rio pousa 07:40
-# (GIG 05:30, direto) e o seguinte 08:30. Cortar antes das 08:30 apaga a volta
-# de quinta inteira e sobra so a de quarta a noite.
-POUSO_LIMITE = datetime(2027, 2, 11, 8, 30)
+DESTINOS = ["MGF"]
+IDAS = ["2026-12-28", "2026-12-29", "2026-12-30"]
+VOLTAS = ["2027-01-01", "2027-01-02", "2027-01-03", "2027-01-04"]
 
 MOEDA = "BRL"
 # O Google responde na moeda de quem chamou: do runner americano do GitHub
@@ -53,6 +37,8 @@ REGIAO = "?hl=pt-BR&gl=BR&curr=BRL"
 MIN_LEITURAS = 10       # abaixo disso nao ha base para opinar
 FOLGA_COMPRAR = 1.08    # ate 8% acima do minimo historico = compra
 MIRA_JUSTO = 0.90       # ate 90% do caminho entre minimo e media = justo
+
+SITE = "https://voo-pro-carnas-2027.lucasluvisonpoa.workers.dev"
 
 
 def prender_em_reais() -> None:
@@ -90,29 +76,18 @@ def _trecho(voo) -> Dict:
     }
 
 
-def _link(destino: str, volta: str) -> str:
+def _link(destino: str, ida: str, volta: str) -> str:
     return (
         "https://www.google.com/travel/flights?q="
-        "Flights%20to%20{}%20from%20POA%20on%20{}%20through%20{}".format(destino, IDA, volta)
+        "Flights%20to%20{}%20from%20POA%20on%20{}%20through%20{}".format(destino, ida, volta)
     )
 
 
-def cabe_na_janela(ida_voo, volta_voo) -> bool:
-    """A regra do grupo: sai depois do expediente de sexta, pousa a tempo de quinta.
-
-    Os filtros do Google sao por hora cheia e as vezes escapam (ja voltou voo das
-    06:50 pousando 11:00), entao a decisao final e sempre aqui.
-    """
-    if ida_voo.legs[0].departure_datetime.hour < IDA_A_PARTIR_DE:
-        return False
-    return volta_voo.legs[-1].arrival_datetime <= POUSO_LIMITE
-
-
-def buscar_combinacao(destino: str, volta: str, cedo: Optional[int], tarde: Optional[int]) -> Optional[Dict]:
-    """Busca a passagem mais barata de uma combinacao destino x data de volta."""
+def buscar_combinacao(destino: str, ida: str, volta: str) -> Optional[Dict]:
+    """Busca a passagem mais barata de uma combinacao destino x ida x volta."""
     from fli.models import (
         Airport, FlightSearchFilters, FlightSegment, PassengerInfo,
-        SeatType, SortBy, TimeRestrictions, TripType,
+        SeatType, SortBy, TripType,
     )
     from fli.search import SearchFlights
 
@@ -122,19 +97,12 @@ def buscar_combinacao(destino: str, volta: str, cedo: Optional[int], tarde: Opti
         FlightSegment(
             departure_airport=[[origem, 0]],
             arrival_airport=[[chegada, 0]],
-            travel_date=IDA,
-            time_restrictions=TimeRestrictions(earliest_departure=IDA_A_PARTIR_DE),
+            travel_date=ida,
         ),
         FlightSegment(
             departure_airport=[[chegada, 0]],
             arrival_airport=[[origem, 0]],
             travel_date=volta,
-            # janela aberta manda None, nao um TimeRestrictions vazio: e exatamente
-            # a mesma requisicao que uma busca sem filtro nenhum
-            time_restrictions=(
-                TimeRestrictions(earliest_departure=cedo, latest_arrival=tarde)
-                if (cedo or tarde) else None
-            ),
         ),
     ]
     filtros = FlightSearchFilters(
@@ -153,37 +121,36 @@ def buscar_combinacao(destino: str, volta: str, cedo: Optional[int], tarde: Opti
         if len(partes) < 2:
             continue  # so faz sentido com ida e volta
         ida_voo, volta_voo = partes[0], partes[-1]
-        if not cabe_na_janela(ida_voo, volta_voo):
-            continue
         conferir_moeda(volta_voo.currency)
         preco = volta_voo.price  # no round-trip, a volta carrega o total da combinacao
         if melhor is None or preco < melhor["preco"]:
             melhor = {
                 "preco": round(preco, 2),
-                "moeda": volta_voo.currency or "BRL",
+                "moeda": volta_voo.currency or MOEDA,
                 "destino": destino,
                 "ida": _trecho(ida_voo),
                 "volta": _trecho(volta_voo),
-                "link": _link(destino, volta),
+                "link": _link(destino, ida, volta),
             }
     return melhor
 
 
 def coletar() -> List[Dict]:
-    """Varre todas as combinacoes da janela. Uma falha nao derruba as outras."""
+    """Varre a janela inteira. Uma combinacao falha nao derruba as outras."""
     achados = []
     for destino in DESTINOS:
-        for volta, cedo, tarde in VOLTAS:
-            try:
-                achado = buscar_combinacao(destino, volta, cedo, tarde)
-            except Exception as erro:  # noqa: BLE001 - um destino fora nao invalida o dia
-                print("falhou {} volta {}: {}".format(destino, volta, erro), file=sys.stderr)
-                continue
-            if achado:
-                achados.append(achado)
-                print("{} volta {}: R$ {:.2f}".format(destino, volta, achado["preco"]))
-            else:
-                print("{} volta {}: sem resultado na janela".format(destino, volta))
+        for ida in IDAS:
+            for volta in VOLTAS:
+                try:
+                    achado = buscar_combinacao(destino, ida, volta)
+                except Exception as erro:  # noqa: BLE001 - uma data fora nao invalida o dia
+                    print("falhou {} {} a {}: {}".format(destino, ida, volta, erro), file=sys.stderr)
+                    continue
+                if achado:
+                    achados.append(achado)
+                    print("{} {} a {}: R$ {:.2f}".format(destino, ida, volta, achado["preco"]))
+                else:
+                    print("{} {} a {}: sem resultado".format(destino, ida, volta))
     return achados
 
 
@@ -199,7 +166,7 @@ def veredicto(preco: float, historico: List[Dict]) -> Dict:
             ),
         }
 
-    menor, maior = min(precos), max(precos)
+    menor = min(precos)
     media = sum(precos) / len(precos)
 
     if preco <= menor * FOLGA_COMPRAR:
@@ -214,27 +181,17 @@ def veredicto(preco: float, historico: List[Dict]) -> Dict:
 
 
 def combinacoes(achados: List[Dict]) -> List[Dict]:
-    """Lista as opcoes da mais barata pra mais cara, sem repetir o mesmo voo.
-
-    As janelas "quarta dia todo" e "quarta a noite" se sobrepoem: quando a mais
-    barata do dia ja e um voo noturno, as duas buscas devolvem o mesmo voo e so
-    uma linha faz sentido na tela.
-    """
-    vistos = set()
-    saida = []
-    for a in sorted(achados, key=lambda a: a["preco"]):
-        chave = (a["destino"], a["volta"]["data"], a["volta"]["partida"])
-        if chave in vistos:
-            continue
-        vistos.add(chave)
-        saida.append({
+    """Uma linha por par ida x volta, da mais barata pra mais cara."""
+    return sorted(
+        [{
             "destino": a["destino"],
+            "ida": a["ida"]["data"],
             "volta": a["volta"]["data"],
-            "partida": a["volta"]["partida"],
-            "paradas": a["volta"]["paradas"],
+            "paradas": max(a["ida"]["paradas"], a["volta"]["paradas"]),
             "preco": a["preco"],
-        })
-    return saida
+        } for a in achados],
+        key=lambda c: c["preco"],
+    )
 
 
 def montar(achados: List[Dict], anterior: Dict, agora: datetime) -> Dict:
@@ -251,8 +208,10 @@ def montar(achados: List[Dict], anterior: Dict, agora: datetime) -> Dict:
         "atualizado_em": agora.isoformat(timespec="seconds"),
         "moeda": melhor["moeda"],
         "embarque": "{}T{}:00-03:00".format(melhor["ida"]["data"], melhor["ida"]["partida"]),
+        "reveillon": "2026-12-31T23:59:00-03:00",
         "atual": melhor,
         "combinacoes": combinacoes(achados),
+        "janela": {"idas": IDAS, "voltas": VOLTAS},
         "resumo": {
             "menor": min(precos),
             "maior": max(precos),
@@ -265,9 +224,61 @@ def montar(achados: List[Dict], anterior: Dict, agora: datetime) -> Dict:
     }
 
 
+def minimo_anterior(anterior: Dict, hoje: str) -> Optional[float]:
+    """Menor preco ja visto antes de hoje. None quando nao ha com que comparar."""
+    passado = [h["preco"] for h in anterior.get("historico", []) if h["data"] != hoje]
+    return min(passado) if passado else None
+
+
+def alertar(dados: Dict, prev_min: float) -> bool:
+    """Manda e-mail de queda. Devolve False quando o SMTP nao esta configurado."""
+    usuario = os.getenv("SMTP_USER", "")
+    senha = os.getenv("SMTP_PASSWORD", "")
+    destino = os.getenv("ALERTA_PARA", "") or usuario
+    if not usuario or not senha or not destino:
+        print("SMTP não configurado — alerta não enviado", file=sys.stderr)
+        return False
+
+    atual = dados["atual"]
+    queda = prev_min - atual["preco"]
+    corpo = (
+        "O voo pro réveillon em Maringá bateu o menor preço desde que o robô começou a olhar.\n\n"
+        "Agora:           R$ {:.2f}\n"
+        "Mínimo anterior: R$ {:.2f}   (queda de R$ {:.2f})\n\n"
+        "Ida:   {} às {}, {} ({})\n"
+        "Volta: {} às {}, {} ({})\n\n"
+        "Ver no site:          {}\n"
+        "Ver no Google Flights: {}\n"
+    ).format(
+        atual["preco"], prev_min, queda,
+        atual["ida"]["data"], atual["ida"]["partida"],
+        _paradas_texto(atual["ida"]["paradas"]), atual["ida"]["cia"],
+        atual["volta"]["data"], atual["volta"]["partida"],
+        _paradas_texto(atual["volta"]["paradas"]), atual["volta"]["cia"],
+        SITE, atual["link"],
+    )
+
+    msg = MIMEText(corpo, "plain", "utf-8")
+    msg["Subject"] = "Réveillon em Maringá: R$ {:.0f}, menor preço até agora".format(atual["preco"])
+    msg["From"] = usuario
+    msg["To"] = destino
+
+    with smtplib.SMTP(os.getenv("SMTP_HOST", "smtp.gmail.com"),
+                      int(os.getenv("SMTP_PORT", "587")), timeout=30) as servidor:
+        servidor.starttls()
+        servidor.login(usuario, senha)
+        servidor.send_message(msg)
+    print("alerta enviado para {}".format(destino))
+    return True
+
+
+def _paradas_texto(n: int) -> str:
+    return "direto" if n == 0 else "1 parada" if n == 1 else "{} paradas".format(n)
+
+
 def testes() -> None:
     """Self-check da logica que nao depende de rede."""
-    base = [{"data": "2026-01-{:02d}".format(i + 1), "preco": p}
+    base = [{"data": "2026-11-{:02d}".format(i + 1), "preco": p}
             for i, p in enumerate([2000, 2200, 2400, 2600, 1800, 2100, 2300, 2500, 2700, 2900])]
 
     assert veredicto(1850, base)["codigo"] == "comprar", "colado no minimo = comprar"
@@ -275,24 +286,6 @@ def testes() -> None:
     assert veredicto(2150, base)["codigo"] == "justo", "abaixo da media = justo"
     assert veredicto(1800, base[:3])["codigo"] == "calibrando", "historico curto nao opina"
 
-    # a janela do grupo: sai depois do expediente de sexta, pousa antes da quinta de manha
-    class _Voo:
-        def __init__(self, partida, chegada):
-            trecho = type("T", (), {"departure_datetime": partida, "arrival_datetime": chegada})
-            self.legs = [trecho]
-
-    sexta_noite = _Voo(datetime(2027, 2, 5, 17, 25), datetime(2027, 2, 5, 19, 20))
-    sexta_tarde = _Voo(datetime(2027, 2, 5, 14, 10), datetime(2027, 2, 5, 16, 5))
-    madrugada = _Voo(datetime(2027, 2, 11, 2, 30), datetime(2027, 2, 11, 4, 45))
-    quarta_noite = _Voo(datetime(2027, 2, 10, 21, 15), datetime(2027, 2, 10, 23, 25))
-    red_eye = _Voo(datetime(2027, 2, 11, 5, 30), datetime(2027, 2, 11, 7, 40))
-    manha_quinta = _Voo(datetime(2027, 2, 11, 6, 50), datetime(2027, 2, 11, 11, 0))
-
-    assert cabe_na_janela(sexta_noite, madrugada), "madrugada de quinta cabe"
-    assert cabe_na_janela(sexta_noite, quarta_noite), "quarta a noite cabe"
-    assert cabe_na_janela(sexta_noite, red_eye), "o voo das 05:30 pousando 07:40 cabe"
-
-    # moeda errada tem que explodir, nao virar linha no historico
     conferir_moeda("BRL")
     conferir_moeda(None)
     for ruim in ("USD", "EUR"):
@@ -302,37 +295,40 @@ def testes() -> None:
             pass
         else:
             raise AssertionError("{} passou pela trava de moeda".format(ruim))
-    assert not cabe_na_janela(sexta_tarde, madrugada), "ida antes das 17h faz faltar sexta"
-    assert not cabe_na_janela(sexta_noite, manha_quinta), "pouso 11h faz faltar quinta"
 
-    def _achado(preco, destino, volta_data, volta_hora, ida_hora="17:25"):
-        return {"preco": preco, "moeda": "BRL", "destino": destino, "link": "x",
-                "ida": {"data": IDA, "partida": ida_hora},
-                "volta": {"data": volta_data, "partida": volta_hora, "paradas": 1}}
+    def _achado(preco, ida_data, volta_data):
+        return {"preco": preco, "moeda": "BRL", "destino": "MGF", "link": "x",
+                "ida": {"data": ida_data, "partida": "07:10", "paradas": 1},
+                "volta": {"data": volta_data, "partida": "19:40", "paradas": 1}}
 
     achados = [
-        _achado(1900.0, "SDU", "2027-02-11", "05:30", ida_hora="18:40"),
-        _achado(1208.0, "GIG", "2027-02-10", "10:20"),
-        _achado(1476.0, "GIG", "2027-02-10", "19:15"),
-        # a janela "quarta dia todo" e a "quarta a noite" as vezes caem no mesmo voo
-        _achado(1476.0, "GIG", "2027-02-10", "19:15"),
+        _achado(1900.0, "2026-12-28", "2027-01-04"),
+        _achado(1420.0, "2026-12-30", "2027-01-02"),
+        _achado(1655.0, "2026-12-29", "2027-01-01"),
     ]
 
     opcoes = combinacoes(achados)
-    assert [o["preco"] for o in opcoes] == [1208.0, 1476.0, 1900.0], "ordena da mais barata"
-    assert len(opcoes) == 3, "o voo repetido vira uma linha so"
-    assert opcoes[0]["partida"] == "10:20", "o horario da volta distingue as opcoes"
-    agora = datetime(2026, 9, 10, 9, 0, tzinfo=FUSO_BR)
-    saida = montar(achados, {"historico": [{"data": "2026-09-09", "preco": 1600.0}]}, agora)
-    assert saida["atual"]["preco"] == 1208.0, "o mais barato entre as combinacoes vence"
-    assert saida["resumo"]["menor"] == 1208.0
+    assert [o["preco"] for o in opcoes] == [1420.0, 1655.0, 1900.0], "ordena da mais barata"
+    assert opcoes[0]["ida"] == "2026-12-30" and opcoes[0]["volta"] == "2027-01-02"
+
+    agora = datetime(2026, 11, 13, 9, 0, tzinfo=FUSO_BR)
+    saida = montar(achados, {"historico": [{"data": "2026-11-12", "preco": 1600.0}]}, agora)
+    assert saida["atual"]["preco"] == 1420.0, "a combinacao mais barata vence"
+    assert saida["resumo"]["menor"] == 1420.0
     assert saida["resumo"]["leituras"] == 2
-    assert saida["combinacoes"][0]["destino"] == "GIG", "combinacoes saem da mais barata pra mais cara"
-    assert saida["embarque"] == "2027-02-05T17:25:00-03:00"
+    assert saida["embarque"] == "2026-12-30T07:10:00-03:00"
+    assert saida["janela"]["idas"] == IDAS
 
     # rodar duas vezes no mesmo dia substitui a leitura, nao duplica
     denovo = montar(achados, saida, agora)
     assert denovo["resumo"]["leituras"] == 2, "uma leitura por dia"
+
+    # o alerta compara com o passado, nunca com a leitura de hoje
+    anterior = {"historico": [{"data": "2026-11-12", "preco": 1600.0},
+                              {"data": "2026-11-13", "preco": 1420.0}]}
+    assert minimo_anterior(anterior, "2026-11-13") == 1600.0, "ignora a leitura de hoje"
+    assert minimo_anterior({"historico": []}, "2026-11-13") is None, "sem passado, sem alerta"
+    assert minimo_anterior({}, "2026-11-13") is None, "rota nova nao dispara e-mail"
 
     print("testes ok")
 
@@ -348,11 +344,23 @@ def main() -> int:
         return 1
 
     anterior = json.loads(DADOS.read_text(encoding="utf-8")) if DADOS.exists() else {}
-    dados = montar(achados, anterior, datetime.now(FUSO_BR))
+    agora = datetime.now(FUSO_BR)
+    prev_min = minimo_anterior(anterior, agora.strftime("%Y-%m-%d"))
+
+    dados = montar(achados, anterior, agora)
     DADOS.write_text(json.dumps(dados, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    print("gravado: R$ {:.2f} ({}) -- {}".format(
-        dados["atual"]["preco"], dados["atual"]["destino"], dados["veredicto"]["titulo"]))
+    print("gravado: R$ {:.2f} ({} a {}) -- {}".format(
+        dados["atual"]["preco"], dados["atual"]["ida"]["data"],
+        dados["atual"]["volta"]["data"], dados["veredicto"]["titulo"]))
+
+    if prev_min is not None and dados["atual"]["preco"] < prev_min:
+        print("novo minimo: R$ {:.2f} (antes R$ {:.2f})".format(dados["atual"]["preco"], prev_min))
+        try:
+            alertar(dados, prev_min)
+        except Exception as erro:  # noqa: BLE001 - e-mail falho nao pode perder o preco do dia
+            print("alerta falhou: {}".format(erro), file=sys.stderr)
+
     return 0
 
 
