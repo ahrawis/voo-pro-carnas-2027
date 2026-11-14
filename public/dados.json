@@ -1,21 +1,21 @@
 {
-  "atualizado_em": "2026-11-13T15:55:00-03:00",
+  "atualizado_em": "2026-11-14T14:28:47-03:00",
   "moeda": "BRL",
-  "embarque": "2026-12-30T10:35:00-03:00",
+  "embarque": "2026-12-29T06:15:00-03:00",
   "reveillon": "2026-12-31T23:59:00-03:00",
   "atual": {
-    "preco": 1288.0,
+    "preco": 1197.0,
     "moeda": "BRL",
     "destino": "MGF",
     "ida": {
-      "data": "2026-12-30",
-      "partida": "10:35",
-      "chegada": "14:25",
-      "chega_em": "2026-12-30",
-      "cia": "Gol Transportes Aéreos",
-      "voo": "G3 1277",
+      "data": "2026-12-29",
+      "partida": "06:15",
+      "chegada": "16:35",
+      "chega_em": "2026-12-29",
+      "cia": "LATAM Chile",
+      "voo": "LA 3151",
       "paradas": 1,
-      "duracao": 230
+      "duracao": 620
     },
     "volta": {
       "data": "2027-01-01",
@@ -27,9 +27,25 @@
       "paradas": 1,
       "duracao": 315
     },
-    "link": "https://www.google.com/travel/flights?q=Flights%20to%20MGF%20from%20POA%20on%202026-12-30%20through%202027-01-01"
+    "link": "https://www.google.com/travel/flights?q=Flights%20to%20MGF%20from%20POA%20on%202026-12-29%20through%202027-01-01"
   },
   "combinacoes": [
+    {
+      "destino": "MGF",
+      "ida": "2026-12-29",
+      "volta": "2027-01-01",
+      "paradas": 1,
+      "preco": 1197.0,
+      "dias": 3
+    },
+    {
+      "destino": "MGF",
+      "ida": "2026-12-29",
+      "volta": "2027-01-04",
+      "paradas": 1,
+      "preco": 1276.0,
+      "dias": 6
+    },
     {
       "destino": "MGF",
       "ida": "2026-12-30",
@@ -40,26 +56,34 @@
     },
     {
       "destino": "MGF",
-      "ida": "2026-12-29",
+      "ida": "2026-12-28",
       "volta": "2027-01-01",
       "paradas": 1,
       "preco": 1309.0,
-      "dias": 3
+      "dias": 4
     },
     {
       "destino": "MGF",
       "ida": "2026-12-29",
-      "volta": "2027-01-04",
-      "paradas": 2,
-      "preco": 1379.0,
-      "dias": 6
+      "volta": "2027-01-02",
+      "paradas": 1,
+      "preco": 1309.0,
+      "dias": 4
+    },
+    {
+      "destino": "MGF",
+      "ida": "2026-12-29",
+      "volta": "2027-01-03",
+      "paradas": 1,
+      "preco": 1443.0,
+      "dias": 5
     },
     {
       "destino": "MGF",
       "ida": "2026-12-30",
       "volta": "2027-01-04",
       "paradas": 1,
-      "preco": 1379.0,
+      "preco": 1493.0,
       "dias": 5
     },
     {
@@ -67,40 +91,16 @@
       "ida": "2026-12-30",
       "volta": "2027-01-02",
       "paradas": 1,
-      "preco": 1400.0,
+      "preco": 1493.0,
       "dias": 3
-    },
-    {
-      "destino": "MGF",
-      "ida": "2026-12-29",
-      "volta": "2027-01-02",
-      "paradas": 1,
-      "preco": 1420.0,
-      "dias": 4
-    },
-    {
-      "destino": "MGF",
-      "ida": "2026-12-30",
-      "volta": "2027-01-03",
-      "paradas": 1,
-      "preco": 1472.0,
-      "dias": 4
     },
     {
       "destino": "MGF",
       "ida": "2026-12-28",
       "volta": "2027-01-04",
       "paradas": 2,
-      "preco": 1524.0,
+      "preco": 1512.0,
       "dias": 7
-    },
-    {
-      "destino": "MGF",
-      "ida": "2026-12-29",
-      "volta": "2027-01-03",
-      "paradas": 2,
-      "preco": 1524.0,
-      "dias": 5
     },
     {
       "destino": "MGF",
@@ -117,14 +117,6 @@
       "paradas": 2,
       "preco": 1669.0,
       "dias": 6
-    },
-    {
-      "destino": "MGF",
-      "ida": "2026-12-28",
-      "volta": "2027-01-01",
-      "paradas": 1,
-      "preco": 1912.0,
-      "dias": 4
     }
   ],
   "janela": {
@@ -141,21 +133,25 @@
     ]
   },
   "resumo": {
-    "menor": 1288.0,
+    "menor": 1197.0,
     "maior": 1288.0,
-    "media": 1288.0,
-    "leituras": 1,
-    "menor_em": "2026-11-13"
+    "media": 1242.5,
+    "leituras": 2,
+    "menor_em": "2026-11-14"
   },
   "veredicto": {
     "codigo": "calibrando",
     "titulo": "Calibrando",
-    "nota": "faltam 9 leituras pra base de comparação ficar honesta"
+    "nota": "faltam 8 leituras pra base de comparação ficar honesta"
   },
   "historico": [
     {
       "data": "2026-11-13",
       "preco": 1288.0
+    },
+    {
+      "data": "2026-11-14",
+      "preco": 1197.0
     }
   ]
 }
