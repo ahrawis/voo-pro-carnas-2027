@@ -1,10 +1,10 @@
 {
-  "atualizado_em": "2026-11-14T14:28:47-03:00",
+  "atualizado_em": "2026-11-15T15:09:15-03:00",
   "moeda": "BRL",
   "embarque": "2026-12-29T06:15:00-03:00",
   "reveillon": "2026-12-31T23:59:00-03:00",
   "atual": {
-    "preco": 1197.0,
+    "preco": 1309.0,
     "moeda": "BRL",
     "destino": "MGF",
     "ida": {
@@ -18,41 +18,25 @@
       "duracao": 620
     },
     "volta": {
-      "data": "2027-01-01",
-      "partida": "17:30",
-      "chegada": "22:45",
-      "chega_em": "2027-01-01",
+      "data": "2027-01-04",
+      "partida": "10:55",
+      "chegada": "17:00",
+      "chega_em": "2027-01-04",
       "cia": "LATAM Chile",
-      "voo": "LA 3175",
+      "voo": "LA 3215",
       "paradas": 1,
-      "duracao": 315
+      "duracao": 365
     },
-    "link": "https://www.google.com/travel/flights?q=Flights%20to%20MGF%20from%20POA%20on%202026-12-29%20through%202027-01-01"
+    "link": "https://www.google.com/travel/flights?q=Flights%20to%20MGF%20from%20POA%20on%202026-12-29%20through%202027-01-04"
   },
   "combinacoes": [
     {
       "destino": "MGF",
       "ida": "2026-12-29",
-      "volta": "2027-01-01",
-      "paradas": 1,
-      "preco": 1197.0,
-      "dias": 3
-    },
-    {
-      "destino": "MGF",
-      "ida": "2026-12-29",
       "volta": "2027-01-04",
       "paradas": 1,
-      "preco": 1276.0,
+      "preco": 1309.0,
       "dias": 6
-    },
-    {
-      "destino": "MGF",
-      "ida": "2026-12-30",
-      "volta": "2027-01-01",
-      "paradas": 1,
-      "preco": 1288.0,
-      "dias": 2
     },
     {
       "destino": "MGF",
@@ -69,6 +53,22 @@
       "paradas": 1,
       "preco": 1309.0,
       "dias": 4
+    },
+    {
+      "destino": "MGF",
+      "ida": "2026-12-30",
+      "volta": "2027-01-01",
+      "paradas": 1,
+      "preco": 1410.0,
+      "dias": 2
+    },
+    {
+      "destino": "MGF",
+      "ida": "2026-12-28",
+      "volta": "2027-01-02",
+      "paradas": 1,
+      "preco": 1420.0,
+      "dias": 5
     },
     {
       "destino": "MGF",
@@ -96,27 +96,11 @@
     },
     {
       "destino": "MGF",
-      "ida": "2026-12-28",
-      "volta": "2027-01-04",
-      "paradas": 2,
-      "preco": 1512.0,
-      "dias": 7
-    },
-    {
-      "destino": "MGF",
-      "ida": "2026-12-28",
-      "volta": "2027-01-02",
-      "paradas": 1,
-      "preco": 1528.0,
-      "dias": 5
-    },
-    {
-      "destino": "MGF",
-      "ida": "2026-12-28",
+      "ida": "2026-12-30",
       "volta": "2027-01-03",
-      "paradas": 2,
-      "preco": 1669.0,
-      "dias": 6
+      "paradas": 1,
+      "preco": 1627.0,
+      "dias": 4
     }
   ],
   "janela": {
@@ -134,15 +118,15 @@
   },
   "resumo": {
     "menor": 1197.0,
-    "maior": 1288.0,
-    "media": 1242.5,
-    "leituras": 2,
+    "maior": 1309.0,
+    "media": 1264.67,
+    "leituras": 3,
     "menor_em": "2026-11-14"
   },
   "veredicto": {
     "codigo": "calibrando",
     "titulo": "Calibrando",
-    "nota": "faltam 8 leituras pra base de comparação ficar honesta"
+    "nota": "faltam 7 leituras pra base de comparação ficar honesta"
   },
   "historico": [
     {
@@ -152,6 +136,10 @@
     {
       "data": "2026-11-14",
       "preco": 1197.0
+    },
+    {
+      "data": "2026-11-15",
+      "preco": 1309.0
     }
   ]
 }
