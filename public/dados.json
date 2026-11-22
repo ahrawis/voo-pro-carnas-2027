@@ -1,7 +1,7 @@
 {
-  "atualizado_em": "2026-11-21T15:27:24-03:00",
+  "atualizado_em": "2026-11-22T15:50:55-03:00",
   "moeda": "BRL",
-  "embarque": "2026-12-29T03:30:00-03:00",
+  "embarque": "2026-12-29T05:15:00-03:00",
   "reveillon": "2026-12-31T23:59:00-03:00",
   "atual": {
     "preco": 1317.0,
@@ -9,13 +9,13 @@
     "destino": "MGF",
     "ida": {
       "data": "2026-12-29",
-      "partida": "03:30",
+      "partida": "05:15",
       "chegada": "10:05",
       "chega_em": "2026-12-29",
       "cia": "LATAM Chile",
-      "voo": "LA 3427",
+      "voo": "LA 3479",
       "paradas": 1,
-      "duracao": 395
+      "duracao": 290
     },
     "volta": {
       "data": "2027-01-01",
@@ -51,7 +51,7 @@
       "ida": "2026-12-29",
       "volta": "2027-01-02",
       "paradas": 2,
-      "preco": 1352.0,
+      "preco": 1320.0,
       "dias": 4
     },
     {
@@ -59,7 +59,7 @@
       "ida": "2026-12-30",
       "volta": "2027-01-02",
       "paradas": 2,
-      "preco": 1352.0,
+      "preco": 1320.0,
       "dias": 3
     },
     {
@@ -105,17 +105,9 @@
     {
       "destino": "MGF",
       "ida": "2026-12-28",
-      "volta": "2027-01-04",
-      "paradas": 1,
-      "preco": 1690.0,
-      "dias": 7
-    },
-    {
-      "destino": "MGF",
-      "ida": "2026-12-28",
       "volta": "2027-01-02",
       "paradas": 2,
-      "preco": 1739.0,
+      "preco": 1580.0,
       "dias": 5
     },
     {
@@ -125,6 +117,14 @@
       "paradas": 1,
       "preco": 1762.0,
       "dias": 6
+    },
+    {
+      "destino": "MGF",
+      "ida": "2026-12-28",
+      "volta": "2027-01-04",
+      "paradas": 1,
+      "preco": 1858.0,
+      "dias": 7
     }
   ],
   "janela": {
@@ -143,14 +143,14 @@
   "resumo": {
     "menor": 1197.0,
     "maior": 1528.0,
-    "media": 1343.33,
-    "leituras": 9,
+    "media": 1340.7,
+    "leituras": 10,
     "menor_em": "2026-11-14"
   },
   "veredicto": {
-    "codigo": "calibrando",
-    "titulo": "Calibrando",
-    "nota": "faltam 1 leituras pra base de comparação ficar honesta"
+    "codigo": "justo",
+    "titulo": "Preço justo",
+    "nota": "abaixo da média da rota. Quem precisa de garantia pode fechar."
   },
   "historico": [
     {
@@ -187,6 +187,10 @@
     },
     {
       "data": "2026-11-21",
+      "preco": 1317.0
+    },
+    {
+      "data": "2026-11-22",
       "preco": 1317.0
     }
   ]
